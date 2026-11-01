@@ -1,0 +1,258 @@
+﻿use,abbreviation,other_abbreviations,name,tci_product_numbers,cas_rn,smiles
+True,"1,3-BAC",,"1,3-Bis(aminomethyl)cyclohexane",B1005,2579-20-6,C1CC(CC(C1)CN)CN
+True,"1,4-BAC",,"1,4-Cyclohexanedimethanamine",B1083;B5146;B5147,2549-93-1,C1CC(CCC1CN)CN
+True,"1,5-DAN",,"1,5-Diaminonaphthalene",D0101;D5689,2243-62-1,C1=CC2=C(C=CC=C2N)C(=C1)N
+True,"2,4-DAT",,"2,4-Diaminotoluene",D0123,95-80-7,CC1=C(C=C(C=C1)N)N
+True,"2,5-DAT",,"2,5-Diaminotoluene",D4628,95-70-5,CC1=C(C=CC(=C1)N)N
+True,"2,6-DAN",,"Naphthalene-2,6-diamine",D6067,,C1=CC2=C(C=CC(=C2)N)C=C1N
+True,"2,6-DAT",,"2,6-Diaminotoluene",D0124,823-40-5,CC1=C(C=CC=C1N)N
+True,"3,3'-DABP",,"3,3'-Diaminobenzophenone",D1682,611-79-0,C1=CC(=CC(=C1)N)C(=O)C2=CC(=CC=C2)N
+True,"3,3'-DDS",,"3,3'-Sulphonyldianiline",B0394,599-61-1,C1=CC(=CC(=C1)S(=O)(=O)C2=CC=CC(=C2)N)N
+True,"3,3'-MDA",,"Benzenamine, 3,3'-methylenebis-",D1683,19471-12-6,C1=CC(=CC(=C1)N)CC2=CC(=CC=C2)N
+True,"3,3'-ODA",,"3,3'-Oxydianiline",O0568,,C1=CC(=CC(=C1)OC2=CC=CC(=C2)N)N
+True,"3,4'-ODA",,3-(4-Aminophenoxy)aniline,D1924,2657-87-6,C1=CC(=CC(=C1)OC2=CC=C(C=C2)N)N
+True,"4,4'-DABP",,"4,4'-Diaminobenzophenone",D1561,611-98-3,C1=CC(=CC=C1C(=O)C2=CC=C(C=C2)N)N
+True,"4,4'-DDS",DDS,Dapsone,D0089,80-08-0,C1=CC(=CC=C1N)S(=O)(=O)C2=CC=C(C=C2)N
+True,4FPPD,,"1,4-Benzenediamine, 2,3,5,6-tetrafluoro-",T1110,1198-64-7,C1(=C(C(=C(C(=C1F)F)N)F)F)N
+True,4MPD,DAD,"2,3,5,6-Tetramethyl-1,4-phenylenediamine",T1457,3102-87-2,CC1=C(C(=C(C(=C1N)C)C)N)C
+True,6FAP,BAHF;Bis-APAF,"2,2-Bis(3-amino-4-hydroxyphenyl)hexafluoropropane",B1415,83558-87-6,C1=CC(=C(C=C1C(C2=CC(=C(C=C2)O)N)(C(F)(F)F)C(F)(F)F)N)O
+True,6FDAm,BAFA;Bis-AF,"4,4'-(Hexafluoroisopropylidene)dianiline",B1400,1095-78-9,C1=CC(=CC=C1C(C2=CC=C(C=C2)N)(C(F)(F)F)C(F)(F)F)N
+True,6FODA,,"4,4'-Oxybis[3-(trifluoromethyl)aniline]",O0542,,C1=CC(=C(C=C1N)C(F)(F)F)OC2=C(C=C(C=C2)N)C(F)(F)F
+True,ABHQ,,(4-(4-Aminobenzoyl)oxyphenyl) 4-aminobenzoate,B6311,,C1=CC(=CC=C1C(=O)OC2=CC=C(C=C2)OC(=O)C3=CC=C(C=C3)N)N
+True,APAB,,4-Aminophenyl 4-Aminobenzoate,A2766,20610-77-9,C1=CC(=CC=C1C(=O)OC2=CC=C(C=C2)N)N
+True,APB-133,m-APB,"Benzenamine, 3,3'-(1,3-phenylenebis(oxy))bis-",B1370,10526-07-5,C1=CC(=CC(=C1)OC2=CC(=CC=C2)OC3=CC=CC(=C3)N)N
+True,ASD,"4,4'-TDA","4,4'-Thiodianiline",T0632,139-65-1,C1=CC(=CC=C1N)SC2=CC=C(C=C2)N
+True,BAFL,FDA,"4,4'-(9-Fluorenylidene)dianiline",B1549;B2654,15499-84-0,C1=CC=C2C(=C1)C3=CC=CC=C3C2(C4=CC=C(C=C4)N)C5=CC=C(C=C5)N
+True,BAP,,"2,2-Bis(3-amino-4-hydroxylphenyl)propane",B4429,1220-78-6,CC(C)(C1=CC(=C(C=C1)O)N)C2=CC(=C(C=C2)O)N
+True,BAPB,,"4,4'-(1,1'-Biphenyl-4,4'-diyldioxy)dianiline",B1671,13080-85-8,C1=CC(=CC=C1C2=CC=C(C=C2)OC3=CC=C(C=C3)N)OC4=CC=C(C=C4)N
+True,BAPP,,"4,4'-(Isopropylidenebis(4,1-phenyleneoxy))dianiline",B1551,13080-86-9,CC(C)(C1=CC=C(C=C1)OC2=CC=C(C=C2)N)C3=CC=C(C=C3)OC4=CC=C(C=C4)N
+True,BAPS,,"4,4'-(Sulfonylbis(4,1-phenyleneoxy))bis(benzenamine)",B1682,13080-89-2,C1=CC(=CC=C1N)OC2=CC=C(C=C2)S(=O)(=O)C3=CC=C(C=C3)OC4=CC=C(C=C4)N
+True,BAS,,"4,4'-Sulphonylbis(2-aminophenol)",B2859,7545-50-8,C1=CC(=C(C=C1S(=O)(=O)C2=CC(=C(C=C2)O)N)N)O
+True,Bisaniline-A,,"4,4'-Isopropylidenedianiline",B6743,,CC(C)(C1=CC=C(C=C1)N)C2=CC=C(C=C2)N
+True,Bisaniline-M,,"1,3-Bis[2-(4-aminophenyl)-2-propyl]benzene",B3853,2687-27-6,CC(C)(C1=CC=C(C=C1)N)C2=CC(=CC=C2)C(C)(C)C3=CC=C(C=C3)N
+True,Bisaniline-P,,"4,4'-(1,4-Phenylenediisopropylidene)bisaniline",B1562,2716-10-1,CC(C)(C1=CC=C(C=C1)C(C)(C)C2=CC=C(C=C2)N)C3=CC=C(C=C3)N
+True,Bisaniline-Z,,"4,4'-Cyclohexylidenebis[benzenamine]",B2076,3282-99-3,C1CCC(CC1)(C2=CC=C(C=C2)N)C3=CC=C(C=C3)N
+True,BPTP,,Bis(4-aminophenyl) Terephthalate,B4541,,C1=CC(=CC=C1C(=O)OC2=CC=C(C=C2)N)C(=O)OC3=CC=C(C=C3)N
+True,CHDA,DACH,"1,4-Diaminocyclohexane",C0814;C1426;C1798,15827-56-2;2615-25-0;3114-70-3,C1CC(CCC1N)N
+True,DABA,,"4,4'-Diaminobenzanilide",D2005,785-30-8,C1=CC(=CC=C1C(=O)NC2=CC=C(C=C2)N)N
+True,DAM,,"2,4-Diaminomesitylene",T1275,3102-70-3,CC1=CC(=C(C(=C1N)C)N)C
+True,DAPBI,,"1H-Benzimidazol-6-amine, 2-(4-aminophenyl)-",A2759,7621-86-5,C1=CC(=CC=C1C2=NC3=C(N2)C=C(C=C3)N)N
+True,DAPBO,,2-(4-Aminophenyl)benzoxazol-5-amine,A3300,13676-47-6,C1=CC(=CC=C1C2=NC3=C(O2)C=CC(=C3)N)N
+True,DMMDA,,"4,4'-Diamino-3,3'-dimethyldiphenylmethane",D2046,838-88-0,CC1=C(C=CC(=C1)CC2=CC(=C(C=C2)N)C)N
+True,EDA,,Ethylenediamine,E0077;E0081,107-15-3;6780-13-8,C(CN)N
+True,FFDA,,"9,9-Bis(4-amino-3-fluorophenyl)fluorene",B2691,127926-65-2,C1=CC=C2C(=C1)C3=CC=CC=C3C2(C4=CC(=C(C=C4)N)F)C5=CC(=C(C=C5)N)F
+True,H12MDA,PACM,"4,4'-Diaminodicyclohexylmethane",M0699,1761-71-3,C1CC(CCC1CC2CCC(CC2)N)N
+True,HAB,,"3,3'-Dihydroxybenzidine",D2312,2373-98-0,C1=CC(=C(C=C1C2=CC(=C(C=C2)N)O)O)N
+True,HFBAPP,BDAF,"Benzenamine, 4,4'-[[2,2,2-trifluoro-1-(trifluoromethyl)ethylidene]bis(4,1-phenyleneoxy)]bis-",B1398,69563-88-8,C1=CC(=CC=C1C(C2=CC=C(C=C2)OC3=CC=C(C=C3)N)(C(F)(F)F)C(F)(F)F)OC4=CC=C(C=C4)N
+True,HMDA,,Hexamethylenediamine,D0095,124-09-4,C(CCCN)CCN
+True,IPDA,,Isophorone diamine,I0228,2855-13-2,CC1(CC(CC(C1)(C)CN)N)C
+True,m-6FAPB,,"4,4'-[1,3-Phenylenebis(oxy)]bis[3-(trifluoromethyl)aniline]",P3122,,C1=CC(=CC(=C1)OC2=C(C=C(C=C2)N)C(F)(F)F)OC3=C(C=C(C=C3)N)C(F)(F)F
+True,m-BAPS,,"Benzenamine, 3,3'-[sulfonylbis(4,1-phenyleneoxy)]bis-",B1681,30203-11-3,C1=CC(=CC(=C1)OC2=CC=C(C=C2)S(=O)(=O)C3=CC=C(C=C3)OC4=CC=CC(=C4)N)N
+True,m-PDA,MPD,M-Phenylenediamine,P1892;P1911,108-45-2,C1=CC(=CC(=C1)N)N
+True,m-TB,,"2,2'-Dimethylbenzidine",T3098,84-67-3,CC1=C(C=CC(=C1)N)C2=C(C=C(C=C2)N)C
+True,MDA,"4,4'-MDA","4,4-Diaminodiphenylmethane",M0220,101-77-9,C1=CC(=CC=C1CC2=CC=C(C=C2)N)N
+True,MDEA,M-DEA,"4,4'-Methylenebis[2,6-diethylaniline]",M1897,13680-35-8,CCC1=CC(=CC(=C1N)CC)CC2=CC(=C(C(=C2)CC)N)CC
+True,MMEA,M-MEA,"4,4'-Methylenebis(2-ethyl-6-methylbenzenamine)",M1238,19900-72-2,CCC1=C(C(=CC(=C1)CC2=CC(=C(C(=C2)C)N)CC)C)N
+True,MOCA,,"3,3'-Dichloro-4,4'-Diaminodiphenylmethane",M0609,101-14-4,C1=CC(=C(C=C1CC2=CC(=C(C=C2)N)Cl)Cl)N
+True,MXDA,,"1,3-Benzenedimethanamine",D0127,1477-55-0,C1=CC(=CC(=C1)CN)CN
+True,o-TB,,o-Tolidine,T0253,119-93-7,CC1=C(C=CC(=C1)C2=CC(=C(C=C2)N)C)N
+True,ODA,"4,4'-ODA","4,4'-Diaminodiphenyl Ether",O0088,101-80-4,C1=CC(=CC=C1N)OC2=CC=C(C=C2)N
+True,OFB,,"Octafluoro-4,4'-biphenylenediamine",D1632,1038-66-0,C1(=C(C(=C(C(=C1F)F)N)F)F)C2=C(C(=C(C(=C2F)F)N)F)F
+True,p-6FAPB,,"1,4-Bis(4-amino-2-trifluoromethylphenoxy)benzene",B4428,94525-05-0,C1=CC(=CC=C1OC2=C(C=C(C=C2)N)C(F)(F)F)OC3=C(C=C(C=C3)N)C(F)(F)F
+True,p-PDA,PDA;PPD,P-Phenylenediamine,P0170,106-50-3,C1=CC(=CC=C1N)N
+True,PXDA,,"1,4-Benzenedimethanamine",D1018,539-48-0,C1=CC(=CC=C1CN)CN
+True,SiDA,APTMDS,"3,3'-(1,1,3,3-Tetramethyldisiloxane-1,3-diyl)bispropylamine",B1552,2469-55-8,C[Si](C)(CCCN)O[Si](C)(C)CCCN
+True,TFMB,TFDB;PFMB,"(1,1'-Biphenyl)-4,4'-diamine, 2,2'-bis(trifluoromethyl)-",B1711,341-58-2,C1=CC(=C(C=C1N)C(F)(F)F)C2=C(C=C(C=C2)N)C(F)(F)F
+True,TMBZ,,"3,3',5,5'-Tetramethylbenzidine",T1023;T2573,54827-17-7,CC1=CC(=CC(=C1N)C)C2=CC(=C(C(=C2)C)N)C
+True,TMMDA,,"4,4'-Methylenebis(2,6-xylidine)",M3403,,CC1=CC(=CC(=C1N)C)CC2=CC(=C(C(=C2)C)N)C
+True,TPE-Q,APB-144,"1,4-Bis(4-aminophenoxy)benzene",B1243,3491-12-1,C1=CC(=CC=C1N)OC2=CC=C(C=C2)OC3=CC=C(C=C3)N
+True,TPE-R,APB-134,"Benzenamine, 4,4'-[1,3-phenylenebis(oxy)]bis-",B1680,2479-46-1,C1=CC(=CC(=C1)OC2=CC=C(C=C2)N)OC3=CC=C(C=C3)N
+True,,,"(+-)-1,1'-Binaphthyl-2,2'-diamine",B3923;D3207;D3208,4488-22-6,C1=CC=C2C(=C1)C=CC(=C2C3=C(C=CC4=CC=CC=C43)N)N
+True,,,"(11R,12R)-9,10-Dihydro-9,10-ethanoanthracene-11,12-diamine",D3444,181139-49-1,C1=CC=C2C3[C@H]([C@@H](C(C2=C1)C4=CC=CC=C34)N)N
+True,,,"(11S,12S)-9,10-Dihydro-9,10-ethanoanthracene-11,12-diamine",D3445,138517-66-5,C1=CC=C2C3[C@@H]([C@H](C(C2=C1)C4=CC=CC=C34)N)N
+True,,,"(1R,2R)-(+)-1,2-Diphenylethylenediamine",D2176,35132-20-8,C1=CC=C(C=C1)[C@H]([C@@H](C2=CC=CC=C2)N)N
+True,,,"(1R,2R)-1,2-Bis(2,4,6-trimethylphenyl)ethylenediamine",B2316,425615-42-5,CC1=CC(=C(C(=C1)C)[C@H]([C@@H](C2=C(C=C(C=C2C)C)C)N)N)C
+True,,,"(1R,2R)-1,2-Bis(2-hydroxyphenyl)ethylenediamine",B3012,870991-70-1,C1=CC=C(C(=C1)[C@H]([C@@H](C2=CC=CC=C2O)N)N)O
+True,,,"(1S,2S)-1,2-Bis(2,4,6-trimethylphenyl)ethylenediamine",B2317,186769-18-6,CC1=CC(=C(C(=C1)C)[C@@H]([C@H](C2=C(C=C(C=C2C)C)C)N)N)C
+True,,,"(1S,2S)-1,2-Bis(2-hydroxyphenyl)ethylenediamine",B3014,870991-68-7,C1=CC=C(C(=C1)[C@@H]([C@H](C2=CC=CC=C2O)N)N)O
+True,,,"(1S,2S)-1,2-diphenylethane-1,2-diamine",D2175,29841-69-8,C1=CC=C(C=C1)[C@@H]([C@H](C2=CC=CC=C2)N)N
+True,,,"1,10-Decanediamine",D0085,646-25-3,C(CCCCCN)CCCCN
+True,,,"1,11-Undecanediamine",D2075,822-08-2,C(CCCCCN)CCCCCN
+True,,,"1,12-Dodecanediamine",D0091,2783-17-7,C(CCCCCCN)CCCCCN
+True,,,"1,14-Diamino-3,6,9,12-tetraoxatetradecane",T3198,68960-97-4,C(COCCOCCOCCOCCN)N
+True,,,"1,2-Diaminocyclohexane",D0277,694-83-7,C1CCC(C(C1)N)N
+True,,,"1,2-Diaminocyclohexane, (+)-",C1448,21436-03-3,C1CC[C@@H]([C@H](C1)N)N
+True,,,"1,2-Diaminocyclohexane, cis-",C1463,1436-59-5,C1CC[C@@H]([C@@H](C1)N)N
+True,,,"1,2-Diaminocyclohexane, trans-",C1120;C1447,1121-22-8;20439-47-8,C1CC[C@H]([C@@H](C1)N)N
+True,,,"1,2-Diphenylethane-1,2-diamine",D2519,16635-95-3,C1=CC=C(C=C1)C(C(C2=CC=CC=C2)N)N
+True,,,"1,3,4-Thiadiazole-2,5-diamine",T3544,,C1(=NN=C(S1)N)N
+True,,,"1,3,5-Triazine-2,4-diamine",D2227,504-08-5,C1=NC(=NC(=N1)N)N
+True,,,"1,3,5-Triazine-2,4-diamine, 6-[2-(2-methyl-1H-imidazol-1-yl)ethyl]-",D3238,38668-46-1,CC1=NC=CN1CCC2=NC(=NC(=N2)N)N
+True,,,"1,3,5-Triazine-2,4-diamine, 6-[2-(2-undecyl-1H-imidazol-1-yl)ethyl]-",D3239,50729-75-4,CCCCCCCCCCCC1=NC=CN1CCC2=NC(=NC(=N2)N)N
+True,,,"1,3,5-Triazine-2,4-diamine, 6-chloro-",C1356,3397-62-4,C1(=NC(=NC(=N1)Cl)N)N
+True,,,"1,3-Bis(4-aminophenoxy)propane",B6641,,C1=CC(=CC=C1N)OCCCOC2=CC=C(C=C2)N
+True,,,"1,3-Cyclohexanediamine",C0813,3385-21-5,C1CC(CC(C1)N)N
+True,,,"1,3-Diamino-2-propanol",H0497,616-29-5,C(C(CN)O)N
+True,,,"1,3-Diaminocyclohexane, cis-",C2801,26772-34-9,C1C[C@H](C[C@H](C1)N)N
+True,,,"1,3-Diaminocyclohexane, trans-",C2802,26883-70-5,C1C[C@H](C[C@@H](C1)N)N
+True,,,"1,3-Diaminopentane",D2252,589-37-7,CCC(CCN)N
+True,,,"1,3-Diaminopyrene",D2167,92821-64-2,C1=CC2=C3C(=C1)C=CC4=C(C=C(C(=C43)C=C2)N)N
+True,,,"1,3-Propanediamine",D0114,109-76-2,C(CN)CN
+True,,,"1,4-Benzenediamine, 2-chloro-5-nitro-",C1501,26196-45-2,C1=C(C(=CC(=C1[N+](=O)[O-])N)Cl)N
+True,,,"1,4-Bis(3-aminopropyl)piperazine",B1041,7209-38-3,C1CN(CCN1CCCN)CCCN
+True,,,"1,5-Bis(p-aminophenoxy)pentane",B6721,,C1=CC(=CC=C1N)OCCCCCOC2=CC=C(C=C2)N
+True,,,"1,5-Diaminoanthraquinone",D1268,129-44-2,C1=CC2=C(C(=C1)N)C(=O)C3=C(C2=O)C(=CC=C3)N
+True,,,"1,6-Diaminopyrene",D2160,14923-84-3,C1=CC2=C(C=CC3=C2C4=C1C=CC(=C4C=C3)N)N
+True,,,"1,7-Heptanediamine",D0094,646-19-5,C(CCCN)CCCN
+True,,,"1,8-Diaminonaphthalene",D0102,479-27-6,C1=CC2=C(C(=C1)N)C(=CC=C2)N
+True,,,"1,8-Octanediamine",D0107,373-44-4,C(CCCCN)CCCN
+True,,,"1-Propanamine, 3,3'-[1,2-ethanediylbis(oxy)]bis-",D1840,2997-01-5,C(CN)COCCOCCCN
+True,,,"2,2',5,5'-Tetrachlorobenzidine",T0933,15721-02-5,C1=C(C(=CC(=C1Cl)N)Cl)C2=CC(=C(C=C2Cl)N)Cl
+True,,,"2,2'-((1-Methylethylidene)bis(thio))bis(ethanamine)",A3768,,CC(C)(SCCN)SCCN
+True,,,"2,2'-Biphenyldiamine",D5255,,C1=CC=C(C(=C1)C2=CC=CC=C2N)N
+True,,,"2,2'-Diaminodiphenylsulfide",B2928,5873-51-8,C1=CC=C(C(=C1)N)SC2=CC=CC=C2N
+True,,,"2,2'-Thiobis(ethanamine)",T1538,871-76-1,C(CSCCN)N
+True,,,"2,2-Bis(3-(3-aminobenzoylamino)-4-hydroxyphenyl)hexafluoropropane",D6008;G0668,,C1=CC(=CC(=C1)N)C(=O)NC2=C(C=CC(=C2)C(C3=CC(=C(C=C3)O)NC(=O)C4=CC(=CC=C4)N)(C(F)(F)F)C(F)(F)F)O
+True,,,"2,2-Dimethyl-1,3-propanediamine",D1570,7328-91-8,CC(C)(CN)CN
+True,,,"2,3-Diaminonaphthalene-1,4-dione",D6762,,C1=CC=C2C(=C1)C(=O)C(=C(C2=O)N)N
+True,,,"2,4,5-Trifluorobenzene-1,3-diamine",T2060,321182-37-0,C1=C(C(=C(C(=C1F)F)N)F)N
+True,,,"2,4-Diamino-6-chloropyrimidine",C0811,156-83-2,C1=C(N=C(N=C1Cl)N)N
+True,,,"2,4-Diamino-6-diethylamino-1,3,5-triazine",D0512,2073-31-6,CCN(CC)C1=NC(=NC(=N1)N)N
+True,,,"2,4-Diamino-6-methoxypyrimidine",D5088,,COC1=NC(=NC(=C1)N)N
+True,,,"2,4-Diaminodiphenylamine",D0087,136-17-4,C1=CC=C(C=C1)NC2=C(C=C(C=C2)N)N
+True,,,"2,4-Diaminopyrimidine",D2120,156-81-0,C1=CN=C(N=C1N)N
+True,,,"2,5-Diamino-4,6-dichloropyrimidine",D4231,55583-59-0,C1(=C(N=C(N=C1Cl)N)Cl)N
+True,,,"2,5-Diamino-4-chlorotoluene",D2179,5307-03-9,CC1=CC(=C(C=C1N)Cl)N
+True,,,"2,5-Dichloro-1,4-benzenediamine",D1873,20103-09-7,C1=C(C(=CC(=C1Cl)N)Cl)N
+True,,,"2,5-Dimethyl-p-phenylenediamine",D2183,6393-01-7,CC1=CC(=C(C=C1N)C)N
+True,,,"2,6-Diamino-4,5,6,7-tetrahydrobenzothiazole",D4343,,C1CC2=C(CC1N)SC(=N2)N
+True,,,"2,6-Diamino-4,5,6,7-tetrahydrobenzothiazole, (S)-",D4337,106092-09-5,C1CC2=C(C[C@H]1N)SC(=N2)N
+True,,,"2,6-Diamino-9-(beta-D-ribofuranosyl)purine",A2135,2096-10-8,C1=NC2=C(N=C(N=C2N1[C@H]3C([C@@H]([C@H](O3)CO)O)O)N)N
+True,,,"2,6-Diamino-N2-(2-aminoethyl)-5-nitropyridine",D5245,,C1=CC(=NC(=C1[N+](=O)[O-])N)NCCN
+True,,,"2,6-Diaminoanthraquinone",D3180,131-14-6,C1=CC2=C(C=C1N)C(=O)C3=C(C2=O)C=C(C=C3)N
+True,,,"2,6-Diaminopurine",D1625;D6096,1904-98-9,C1=NC2=NC(=NC(=C2N1)N)N
+True,,,"2,6-Diaminopyridine",D1154,141-86-6,C1=CC(=NC(=C1)N)N
+True,,,"2,6-Dibromo-1,4-phenylenediamine",D4384,29213-03-4,C1=C(C=C(C(=C1Br)N)Br)N
+True,,,"2,7-Diamino-9,9-di-n-octylfluorene",D4719,851042-10-9,CCCCCCCCC1(C2=C(C=CC(=C2)N)C3=C1C=C(C=C3)N)CCCCCCCC
+True,,,"2,7-Diaminofluorene",D0092,525-64-4,C1C2=C(C=CC(=C2)N)C3=C1C=C(C=C3)N
+True,,,2-(3-Aminophenyl)-1H-benzo[d]imidazol-5-amine,D6250,,C1=CC(=CC(=C1)N)C2=NC3=C(N2)C=C(C=C3)N
+True,,,2-(4-Aminophenyl)ethylamine,A1509,13472-00-9,C1=CC(=CC=C1CCN)N
+True,,,2-(Aminomethyl)aniline,A1435,4403-69-4,C1=CC=C(C(=C1)CN)N
+True,,,"2-(Trifluoromethyl)-1,4-phenyldiamine",T2969,,C1=CC(=C(C=C1N)C(F)(F)F)N
+True,,,2-[2-(2-Aminophenoxy)ethoxy]aniline,E1365,,C1=CC=C(C(=C1)N)OCCOC2=CC=CC=C2N
+True,,,"2-[4-(2-Aminophenoxy)-2,3,5,6-tetrafluorophenoxy]aniline",B6914,,C1=CC=C(C(=C1)N)OC2=C(C(=C(C(=C2F)F)OC3=CC=CC=C3N)F)F
+True,,,2-Aminoisocytosine,D1321,56-06-4,C1=C(N=C(NC1=O)N)N
+True,,,"2-Butenoic acid, 3-amino-, 1,1'-(1,4-butanediyl) ester",B1069,14205-47-1,C/C(=C/C(=O)OCCCCOC(=O)/C=C(\N)/C)/N
+True,,,2-Chloro-p-Phenylenediamine,C3054,615-66-7,C1=CC(=C(C=C1N)Cl)N
+True,,,"2-Methyl-1,3-propanediamine",M1657,2400-78-4,CC(CN)CN
+True,,,2-Methylpentanediamine,M0205,15520-10-2,CC(CCCN)CN
+True,,,2-Methylpropylenediamine,D2102,811-93-8,CC(C)(CN)N
+True,,,2-Nitro-4-phenylenediamine,D0105,5307-14-2,C1=CC(=C(C=C1N)[N+](=O)[O-])N
+True,,,2-Thio-6-aminocytosine,D2063,1004-39-3,C1=C(NC(=S)N=C1N)N
+True,,,"3,3'-(Biphenyl-4,4'-diylbis(oxy))dianiline",B6326,,C1=CC(=CC(=C1)OC2=CC=C(C=C2)C3=CC=C(C=C3)OC4=CC=CC(=C4)N)N
+True,,,"3,3'-Diamino-[1,1'-biphenyl]-4,4'-diol",D2088,,C1=CC(=C(C=C1C2=CC(=C(C=C2)O)N)N)O
+True,,,"3,3'-Dimethyl(1,1'-binaphthalene)-4,4'-diamine",D0754,13138-48-2,CC1=C(C2=CC=CC=C2C(=C1)C3=CC(=C(C4=CC=CC=C43)N)C)N
+True,,,"3,3'-Dinitrobenzidine",D0822,6271-79-0,C1=CC(=C(C=C1C2=CC(=C(C=C2)N)[N+](=O)[O-])[N+](=O)[O-])N
+True,,,"3,4'-Diamino-4-nitrodiphenyl Ether",D3675,30491-74-8,C1=CC(=CC=C1N)OC2=CC(=C(C=C2)[N+](=O)[O-])N
+True,,,"3,5-Diamino-1,2,4-triazole",D2587,1455-77-2,C1(=NC(=NN1)N)N
+True,,,"3,5-Diamino-N-(pyridin-3-ylmethyl)benzamide",D6281,,C1=CC(=CN=C1)CNC(=O)C2=CC(=CC(=C2)N)N
+True,,,"3,7-Dibenzothiophenediamine, 2,8-dimethyl-, 5,5-dioxide",T1419,55011-44-4,CC1=CC2=C(C=C1N)S(=O)(=O)C3=C2C=C(C(=C3)N)C
+True,,,3-Aminobenzylamine,A1431,4403-70-7,C1=CC(=CC(=C1)N)CN
+True,,,"4,4''-Diaminoterphenyl",D3390,3365-85-3,C1=CC(=CC=C1C2=CC=C(C=C2)N)C3=CC=C(C=C3)N
+True,,,"4,4'-((1,1'-Biphenyl)-2,2'-diylbis(oxy))bis(3-(trifluoromethyl)aniline)",B6604,,C1=CC=C(C(=C1)C2=CC=CC=C2OC3=C(C=C(C=C3)N)C(F)(F)F)OC4=C(C=C(C=C4)N)C(F)(F)F
+True,,,"4,4'-(1,3,4-Oxadiazole-2,5-diyl)dianiline",B2169,2425-95-8,C1=CC(=CC=C1C2=NN=C(O2)C3=CC=C(C=C3)N)N
+True,,,"4,4'-(1,6-Hexanediyl)dioxydianiline",B6640,,C1=CC(=CC=C1N)OCCCCCCOC2=CC=C(C=C2)N
+True,,,"4,4'-(9H-fluoren-9-ylidene)bis(2-chloroaniline)",B2690,107934-68-9,C1=CC=C2C(=C1)C3=CC=CC=C3C2(C4=CC(=C(C=C4)N)Cl)C5=CC(=C(C=C5)N)Cl
+True,,,"4,4'-(Benzo(c)(1,2,5)thiadiazole-4,7-diyl)dianiline",B6846,,C1=CC(=CC=C1C2=CC=C(C3=NSN=C23)C4=CC=C(C=C4)N)N
+True,,,"4,4'-(Naphthalene-2,7-diylbis(oxy))dianiline",B6310,,C1=CC(=CC2=C1C=CC(=C2)OC3=CC=C(C=C3)N)OC4=CC=C(C=C4)N
+True,,,"4,4'-(Piperazine-1,4-diyl)dianiline",B6647,,C1CN(CCN1C2=CC=C(C=C2)N)C3=CC=C(C=C3)N
+True,,,"4,4'-[[1,1'-Biphenyl]-2,2'-diylbis(oxy)]dianiline",B6603,,C1=CC=C(C(=C1)C2=CC=CC=C2OC3=CC=C(C=C3)N)OC4=CC=C(C=C4)N
+True,,,"4,4'-[[1,1'-Biphenyl]-4,4'-diylbis(oxy)]bis[3-(trifluoromethyl)aniline]",B6320,,C1=CC(=CC=C1C2=CC=C(C=C2)OC3=C(C=C(C=C3)N)C(F)(F)F)OC4=C(C=C(C=C4)N)C(F)(F)F
+True,,,"4,4'-[Ethane-1,2-diylbis(oxy)]dianiline",B6642,,C1=CC(=CC=C1N)OCCOC2=CC=C(C=C2)N
+True,,,"4,4'-Diamino-2,2'-bipyridine",D2892,18511-69-8,C1=CN=C(C=C1N)C2=NC=CC(=C2)N
+True,,,"4,4'-Diazenediyldianiline",D3430,,C1=CC(=CC=C1N)N=NC2=CC=C(C=C2)N
+True,,,"4,4'-Ethylenedi-3-toluidine",D1658,54628-21-6,CC1=C(C=CC(=C1)N)CCC2=C(C=C(C=C2)N)C
+True,,,"4,4'-Ethylenedianiline",E0346,621-95-4,C1=CC(=CC=C1CCC2=CC=C(C=C2)N)N
+True,,,"4,4'-Methylenebis(2-ethylbenzamine)",M3167,,CCC1=C(C=CC(=C1)CC2=CC(=C(C=C2)N)CC)N
+True,,,"4,4'-Methylenebis(3-chloro-2,6-diethylaniline)",M3183,,CCC1=CC(=C(C(=C1N)CC)Cl)CC2=C(C(=C(C(=C2)CC)N)CC)Cl
+True,,,"4,9-Dioxa-1,12-dodecanediamine",B1201,7300-34-7,C(CCOCCCN)COCCCN
+True,,,"4-((2,4-Diamino-5-pyrimidinyl)methyl)-2,6-dimethoxyphenol",D6255,,COC1=CC(=CC(=C1O)OC)CC2=CN=C(N=C2N)N
+True,,,4-(2-Aminoethyl)cyclohexylamine,A2609,202256-86-8,C1CC(CCC1CCN)N
+True,,,"4-(3,5-Dibromo-2-pyridylazo)-1,3-phenylenediamine [for Colorimetric Analysis of Co, Cd]",D1552,50768-79-1,C1=CC(=C(C=C1N)N)N=NC2=C(C=C(C=N2)Br)Br
+True,,,4-Amino-2-methyl-5-pyrimidinemethanamine,A2633,,CC1=NC=C(C(=N1)N)CN
+True,,,4-Aminobenzylamine,A1436,4403-71-8,C1=CC(=CC=C1CN)N
+True,,,4-Aminocyclohexanemethanamine,A3258,,C1CC(CCC1CN)N
+True,,,4-Aminophenyl disulfide,D0291,722-27-0,C1=CC(=CC=C1N)SSC2=CC=C(C=C2)N
+True,,,4-Chloro-M-phenylenediamine,C0710,5131-60-2,C1=CC(=C(C=C1N)N)Cl
+True,,,"4-Fluorobenzene-1,3-diamine",F0794,6264-67-1,C1=CC(=C(C=C1N)N)F
+True,,,"4-Nitro-1,3-benzenediamine",D0104,5131-58-8,C1=CC(=C(C=C1N)N)[N+](=O)[O-]
+True,,,"5,5'-Diamino-2,2'-bipyridine",D2893,,C1=CC(=NC=C1N)C2=NC=C(C=C2)N
+True,,,"5,5'-Diamino-3,3,3',3'-tetramethyl-2,2',3,3'-tetrahydro-1,1'-spirobi[indene]-6,6'-diol",D6142,,CC1(CC2(CC(C3=CC(=C(C=C32)O)N)(C)C)C4=CC(=C(C=C41)N)O)C
+True,,,"5-(Trifluoromethyl)benzene-1,3-diamine",T3239,,C1=C(C=C(C=C1N)N)C(F)(F)F
+True,,,5-Amino-2-(4-aminophenyl)benzofuran,A1966,84102-58-9,C1=CC(=CC=C1C2=CC3=C(O2)C=CC(=C3)N)N
+True,,,5-Cl-PADAB,C0932,33006-91-6,C1=CC(=C(C=C1N)N)N=NC2=NC=C(C=C2)Cl
+True,,,"6,6'-Diamino-2,2'-bipyridyl",D2913,93127-75-4,C1=CC(=NC(=C1)N)C2=NC(=CC=C2)N
+True,,,6-((4-(Aminomethyl)benzyl)oxy)-9H-purin-2-amine,A3634,,C1=CC(=CC=C1CN)COC2=NC(=NC3=C2NC=N3)N
+True,,,"6-(1-Methylethoxy)-1,3,5-triazine-2,4-diamine",D2225,24860-40-0,CC(C)OC1=NC(=NC(=N1)N)N
+True,,,"6-(4-Aminophenoxy)-[1,1'-biphenyl]-3-amine",A3652,,C1=CC=C(C=C1)C2=C(C=CC(=C2)N)OC3=CC=C(C=C3)N
+True,,,"6-Ethenyl-1,3,5-triazine-2,4-diamine",V0057,3194-70-5,C=CC1=NC(=NC(=N1)N)N
+True,,,6-Methoxyguanamine,D2232,2827-45-4,COC1=NC(=NC(=N1)N)N
+True,,,"9,9-Bis(3-amino-4-hydroxyphenyl)fluorene",B2692,20638-07-7,C1=CC=C2C(=C1)C3=CC=CC=C3C2(C4=CC(=C(C=C4)O)N)C5=CC(=C(C=C5)O)N
+True,,,"9,9-Bis(4-amino-3-methylphenyl)fluorene",B2693,107934-60-1,CC1=C(C=CC(=C1)C2(C3=CC=CC=C3C4=CC=CC=C42)C5=CC(=C(C=C5)N)C)N
+True,,,"9H-carbazole-3,6-diamine",D2116,86-71-5,C1=CC2=C(C=C1N)C3=C(N2)C=CC(=C3)N
+True,,,Acetoguanamine,D0583,542-02-9,CC1=NC(=NC(=N1)N)N
+True,,,"Adamantane-1,3-diamine",A3265,,C1C2CC3(CC1CC(C2)(C3)N)N
+True,,,Ammeline,A0676,645-92-1,C1(=NC(=NC(=O)N1)N)N
+True,,,"Anthracene-2,6-diamine",D6581,,C1=CC(=CC2=CC3=C(C=C21)C=C(C=C3)N)N
+True,,,"Benzenamine, 3-((4-aminophenyl)methyl)-",D1684,19430-83-2,C1=CC(=CC(=C1)N)CC2=CC=C(C=C2)N
+True,,,Benzoguanamine,D0111,91-76-9,C1=CC=C(C=C1)C2=NC(=NC(=N2)N)N
+True,,,Bis(2-aminoethyl) ether,O0278,2752-17-2,C(COCCN)N
+True,,,Bis(2-aminophenyl) disulfide,D1246,1141-88-4,C1=CC=C(C(=C1)N)SSC2=CC=CC=C2N
+True,,,Bis(3-aminopropyl) Ether,B1268,2157-24-6,C(CN)COCCCN
+True,,,Bis(3-aminopropyl)amine,D0090,56-18-8,C(CN)CNCCCN
+True,,,Bis(4-amino-3-methylcyclohexyl)methane,M1422,6864-37-5,CC1CC(CCC1N)CC2CCC(C(C2)C)N
+True,,,Bis-Aminoethylglycol,B1431,929-59-9,C(COCCOCCN)N
+True,,,BMeS-p-A,B5419,,CS(=O)(=O)C1=CC(=C(C=C1N)S(=O)(=O)C)N
+True,,,Cadaverine,D0108,462-94-2,C(CCN)CCN
+True,,,"cis-1,3-Bis(aminomethyl)cyclohexane",B4176,10340-00-8,C1C[C@H](C[C@H](C1)CN)CN
+True,,,Cyromazine,C2366,66215-27-8,C1CC1NC2=NC(=NC(=N2)N)N
+True,,,Diaminodiphenoxybutane,B7169,,C1=CC(=CC=C1N)OCCCCOC2=CC=C(C=C2)N
+True,,,Diaminomaleonitrile,D1335,1187-42-4,C(#N)/C(=C(\C#N)/N)/N
+True,,,Dianisidine,D1344;D3864,119-90-4,COC1=C(C=CC(=C1)C2=CC(=C(C=C2)N)OC)N
+True,,,Dicyclanil,D6269,,C1CC1NC2=NC(=C(C(=N2)N)C#N)N
+True,,,Diethylene glycol bis(3-aminopropyl) ether,D1571,4246-51-9,C(CN)COCCOCCOCCCN
+True,,,Diethylenetriamine,D0493,111-40-0,C(CNCCN)N
+True,,,Disperse Violet 1,D0075;D3539,128-95-0,C1=CC=C2C(=C1)C(=O)C3=C(C=CC(=C3C2=O)N)N
+True,,,Disperse Violet 28,D2725,81-42-5,C1=CC=C2C(=C1)C(=O)C3=C(C2=O)C(=C(C(=C3N)Cl)Cl)N
+True,,,"Ethanamine, 2,2'-(oxybis(2,1-ethanediyloxy))bis-",D3664,929-75-9,C(COCCOCCOCCN)N
+True,,,"Ethyl-1,18-octadecanediamine (mixture of branched chain isomers)",E1568,,CCC(CCCCCCCCCCN)CCCCCCCN
+True,,,GW-2580,G0504,,COC1=CC=C(C=C1)COC2=C(C=C(C=C2)CC3=CN=C(N=C3N)N)OC
+True,,,Hygromycin B,H1509,31282-04-9,CN[C@H]1C[C@H]([C@@H]([C@H]([C@@H]1O)O[C@H]2[C@@H]3[C@H]([C@H]([C@H](O2)CO)O)OC4(O3)[C@@H]([C@H]([C@H]([C@H](O4)[C@H](CO)N)O)O)O)O)N
+True,,,Lamotrigine,L0241,84057-84-1,C1=CC(=C(C(=C1)Cl)Cl)C2=C(N=C(N=N2)N)N
+True,,,"Meso-1,2-Diphenylethylenediamine",D3930,951-87-1,C1=CC=C(C=C1)[C@H]([C@H](C2=CC=CC=C2)N)N
+True,,,"Methyl 3,5-diamino-6-chloropyrazine-2-carboxylate",M2322,1458-01-1,COC(=O)C1=C(N=C(C(=N1)Cl)N)N
+True,,,"N,N'-Bis(2-aminobenzal)ethylenediamine",A0261,4408-47-3,C1=CC=C(C(=C1)C=NCCN=CC2=CC=CC=C2N)N
+True,,,"N,N'-Bis(2-aminoethyl)-1,3-propanediamine",B1445,4741-99-5,C(CNCCN)CNCCN
+True,,,"N,N'-bis(3-aminopropyl)ethylenediamine",B1952,10563-26-5,C(CN)CNCCNCCCN
+True,,,"N,N-bis(3-aminopropyl)methylamine",B0821,105-83-9,CN(CCCN)CCCN
+True,,,"N,N-Dimethylmelamine",D2236,1985-46-2,CN(C)C1=NC(=NC(=N1)N)N
+True,,,"N-(2-aminoethyl)-1,3-propanediamine",A3890,,C(CN)CNCCN
+True,,,"N-(6-Aminohexyl)-1,6-hexanediamine",B1814,143-23-7,C(CCCNCCCCCCN)CCN
+True,,,"N-Butyl-1,3,5-triazine-2,4,6-triamine",B0727,5606-24-6,CCCCNC1=NC(=NC(=N1)N)N
+True,,,"N-Methyl-2,2'-diaminodiethylamine",M1085,4097-88-5,CN(CCN)CCN
+True,,,"N2,N2-Di-2-propen-1-yl-1,3,5-triazine-2,4,6-triamine",D1075,91-77-0,C=CCN(CC=C)C1=NC(=NC(=N1)N)N
+True,,,"Pentacyclo[6.6.6.02,7.09,14.015,20]icosa-2,4,6,9,11,13,15,17,19-nonaene-3,6-diamine",T4164,,C1=CC=C2C3C4=CC=CC=C4C(C2=C1)C5=C(C=CC(=C35)N)N
+True,,,Pentaethylenehexamine,P0622,4067-16-7,C(CNCCNCCNCCNCCN)N
+True,,,Proflavine,A3219,,C1=CC(=CC2=NC3=C(C=CC(=C3)N)C=C21)N
+True,,,Propylenediamine,D0113,78-90-0,CC(CN)N
+True,,,Putrescine,D0239,110-60-1,C(CCN)CN
+True,,,Pyrimethamine,P2037,58-14-0,CCC1=C(C(=NC(=N1)N)N)C2=CC=C(C=C2)Cl
+True,,,"Pyrimidine-4,6-diamine",D3648,2434-56-2,C1=C(N=CN=C1N)N
+True,,,Riociguat,R0292,,CN(C1=C(N=C(N=C1N)C2=NN(C3=C2C=CC=N3)CC4=CC=CC=C4F)N)C(=O)OC
+True,,,Spermidine,P3255,,C(CCNCCCN)CN
+True,,,Spermine,P3251,,C(CCNCCCN)CNCCCN
+True,,,Tetraethylenepentamine,T0098,112-57-2,C(CNCCNCCNCCN)N
+True,,,Tetrafluoro-m-phenylenediamine,T2019,1198-63-6,C1(=C(C(=C(C(=C1F)F)F)N)F)N
+True,,,Triethylenetetramine,T0429,112-24-3,C(CNCCNCCN)N
+True,,,Trimethoprim,T2286,738-70-5,COC1=CC(=CC(=C1OC)OC)CC2=CN=C(N=C2N)N
+True,,,Trimethylene glycol di-p-aminobenzoate,T1646,57609-64-0,C1=CC(=CC=C1C(=O)OCCCOC(=O)C2=CC=C(C=C2)N)N

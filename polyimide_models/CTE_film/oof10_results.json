@@ -1,0 +1,233 @@
+{
+  "target": "CTE_film",
+  "unit": "ppm_per_C",
+  "n_splits": 10,
+  "rows": 138,
+  "families": 122,
+  "shared_repeat_units": 0,
+  "seed": 20261041,
+  "model_selection": "Previously selected models, hyperparameters and weights fixed; no selection within these folds.",
+  "caveat": "Non-nested assessment: prior feature/model selection used part of this same dataset. All predictions are out-of-fold for fitting, but selection bias can remain. Not equivalent to the untouched holdout.",
+  "aggregation": "Metrics calculated once on all concatenated OOF predictions, not an average of fold R2.",
+  "best_single_oof": {
+    "MAE": 11.745168377616746,
+    "RMSE": 16.057011395650978,
+    "R2": 0.5961908510864187,
+    "median_AE": 9.028185185185194,
+    "n": 138
+  },
+  "ensemble_oof": {
+    "MAE": 11.825813231358806,
+    "RMSE": 15.40590429248159,
+    "R2": 0.6282755614298243,
+    "median_AE": 8.376845982543053,
+    "n": 138
+  },
+  "baseline_oof": {
+    "MAE": 21.08920289855072,
+    "RMSE": 26.055410082461133,
+    "R2": -0.06326752323467599,
+    "median_AE": 18.0,
+    "n": 138
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "train_rows": 125,
+      "validation_rows": 13,
+      "validation_families": 13,
+      "shared_repeat_units": 0,
+      "MAE": 12.600616287580001,
+      "RMSE": 15.724104412278361,
+      "R2": 0.20432984842723845,
+      "median_AE": 8.389532385423216,
+      "n": 13,
+      "log10_RMSE": 0.274609894258993,
+      "median_absolute_percentage_error": 17.4781924696317
+    },
+    {
+      "fold": 2,
+      "train_rows": 125,
+      "validation_rows": 13,
+      "validation_families": 13,
+      "shared_repeat_units": 0,
+      "MAE": 11.728072204527718,
+      "RMSE": 14.441119197245165,
+      "R2": 0.44208383133834406,
+      "median_AE": 12.552109975288555,
+      "n": 13,
+      "log10_RMSE": 0.2733668566888204,
+      "median_absolute_percentage_error": 22.532436850703082
+    },
+    {
+      "fold": 3,
+      "train_rows": 125,
+      "validation_rows": 13,
+      "validation_families": 12,
+      "shared_repeat_units": 0,
+      "MAE": 13.89711789688535,
+      "RMSE": 19.178637040456373,
+      "R2": 0.14989498320625605,
+      "median_AE": 8.138020225810063,
+      "n": 13,
+      "log10_RMSE": 0.24088787516430812,
+      "median_absolute_percentage_error": 22.366230366950774
+    },
+    {
+      "fold": 4,
+      "train_rows": 126,
+      "validation_rows": 12,
+      "validation_families": 12,
+      "shared_repeat_units": 0,
+      "MAE": 13.18729340200155,
+      "RMSE": 16.599809918881686,
+      "R2": 0.4802740146714066,
+      "median_AE": 9.092074388012733,
+      "n": 12,
+      "log10_RMSE": 0.19978191787772984,
+      "median_absolute_percentage_error": 17.264815484289542
+    },
+    {
+      "fold": 5,
+      "train_rows": 126,
+      "validation_rows": 12,
+      "validation_families": 12,
+      "shared_repeat_units": 0,
+      "MAE": 8.721658518812022,
+      "RMSE": 11.413090140677005,
+      "R2": 0.7998969750547678,
+      "median_AE": 7.121678926970986,
+      "n": 12,
+      "log10_RMSE": 0.6334885606020666,
+      "median_absolute_percentage_error": 13.60313256308884
+    },
+    {
+      "fold": 6,
+      "train_rows": 126,
+      "validation_rows": 12,
+      "validation_families": 12,
+      "shared_repeat_units": 0,
+      "MAE": 12.33697346601857,
+      "RMSE": 16.932480398421035,
+      "R2": -0.9651625571614533,
+      "median_AE": 7.11007408252793,
+      "n": 12,
+      "log10_RMSE": 0.14319675181441588,
+      "median_absolute_percentage_error": 10.554250244190888
+    },
+    {
+      "fold": 7,
+      "train_rows": 122,
+      "validation_rows": 16,
+      "validation_families": 12,
+      "shared_repeat_units": 0,
+      "MAE": 11.983426722238015,
+      "RMSE": 16.091497487345542,
+      "R2": 0.7769757014531037,
+      "median_AE": 9.514303291291373,
+      "n": 16,
+      "log10_RMSE": 0.42238750572234757,
+      "median_absolute_percentage_error": 25.254101209240055
+    },
+    {
+      "fold": 8,
+      "train_rows": 115,
+      "validation_rows": 23,
+      "validation_families": 12,
+      "shared_repeat_units": 0,
+      "MAE": 9.859253886899076,
+      "RMSE": 12.391586373926264,
+      "R2": 0.4789519866418791,
+      "median_AE": 6.924970088258359,
+      "n": 23,
+      "log10_RMSE": 0.3418030304708264,
+      "median_absolute_percentage_error": 21.404301207840188
+    },
+    {
+      "fold": 9,
+      "train_rows": 126,
+      "validation_rows": 12,
+      "validation_families": 12,
+      "shared_repeat_units": 0,
+      "MAE": 15.120403631162857,
+      "RMSE": 19.137509917237665,
+      "R2": 0.5681700762810782,
+      "median_AE": 12.310237995259772,
+      "n": 12
+    },
+    {
+      "fold": 10,
+      "train_rows": 126,
+      "validation_rows": 12,
+      "validation_families": 12,
+      "shared_repeat_units": 0,
+      "MAE": 10.3444273083482,
+      "RMSE": 11.784013895373677,
+      "R2": 0.8088151910322585,
+      "median_AE": 10.337048065148759,
+      "n": 12
+    }
+  ],
+  "selection": {
+    "target": "CTE_film",
+    "members": [
+      {
+        "candidate_id": "hybrid__extra_trees__identity__v0",
+        "feature_set": "hybrid",
+        "model": "extra_trees",
+        "target_transform": "identity",
+        "variant": 0,
+        "cv_MAE": 11.259055300713559,
+        "weight": 0.2140900688635708
+      },
+      {
+        "candidate_id": "morgan_r3__catboost__identity__v1",
+        "feature_set": "morgan_r3",
+        "model": "catboost",
+        "target_transform": "identity",
+        "variant": 1,
+        "cv_MAE": 12.085089822124537,
+        "weight": 0.19945668258548077
+      },
+      {
+        "candidate_id": "rdkit_path__catboost__identity__v1",
+        "feature_set": "rdkit_path",
+        "model": "catboost",
+        "target_transform": "identity",
+        "variant": 1,
+        "cv_MAE": 12.187382950978954,
+        "weight": 0.19778257025023555
+      },
+      {
+        "candidate_id": "morgan_r2__random_forest__identity__v1",
+        "feature_set": "morgan_r2",
+        "model": "random_forest",
+        "target_transform": "identity",
+        "variant": 1,
+        "cv_MAE": 12.216346398536478,
+        "weight": 0.1973136522190702
+      },
+      {
+        "candidate_id": "rdkit__catboost__identity__v0",
+        "feature_set": "rdkit",
+        "model": "catboost",
+        "target_transform": "identity",
+        "variant": 0,
+        "cv_MAE": 12.596620955219578,
+        "weight": 0.19135702608164254
+      }
+    ],
+    "best_single_candidate": "hybrid__extra_trees__identity__v0",
+    "weight_method": "inverse_CV_MAE",
+    "ensemble_selection_cv": {
+      "MAE": 11.476286591875143,
+      "RMSE": 14.82844419529424,
+      "R2": 0.6335448948878181,
+      "median_AE": 8.405328438128421,
+      "n": 109
+    },
+    "equal_weight_selection_cv_MAE": 11.490716353390528,
+    "inverse_weight_selection_cv_MAE": 11.476286591875143,
+    "note": "CV scores are used for model/feature selection; holdout is the generalization estimate."
+  }
+}

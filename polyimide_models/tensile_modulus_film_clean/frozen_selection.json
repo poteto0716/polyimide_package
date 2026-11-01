@@ -1,0 +1,64 @@
+{
+  "target": "tensile_modulus_film_clean",
+  "members": [
+    {
+      "candidate_id": "hybrid__svr_rbf__log10__v0",
+      "feature_set": "hybrid",
+      "model": "svr_rbf",
+      "target_transform": "log10",
+      "variant": 0,
+      "cv_MAE": 0.4960392078647878,
+      "weight": 0.21499973371084072
+    },
+    {
+      "candidate_id": "morgan_r2__lightgbm__log10__v1",
+      "feature_set": "morgan_r2",
+      "model": "lightgbm",
+      "target_transform": "log10",
+      "variant": 1,
+      "cv_MAE": 0.5225488705498357,
+      "weight": 0.20409248514660153
+    },
+    {
+      "candidate_id": "morgan_r3__catboost__log10__v1",
+      "feature_set": "morgan_r3",
+      "model": "catboost",
+      "target_transform": "log10",
+      "variant": 1,
+      "cv_MAE": 0.5358685894956875,
+      "weight": 0.19901949786128303
+    },
+    {
+      "candidate_id": "rdkit_path__lightgbm__log10__v0",
+      "feature_set": "rdkit_path",
+      "model": "lightgbm",
+      "target_transform": "log10",
+      "variant": 0,
+      "cv_MAE": 0.5560848417114279,
+      "weight": 0.19178421996334385
+    },
+    {
+      "candidate_id": "rdkit__catboost__log10__v1",
+      "feature_set": "rdkit",
+      "model": "catboost",
+      "target_transform": "log10",
+      "variant": 1,
+      "cv_MAE": 0.5609995690765783,
+      "weight": 0.1901040633179308
+    }
+  ],
+  "best_single_candidate": "hybrid__svr_rbf__log10__v0",
+  "weight_method": "inverse_CV_MAE",
+  "ensemble_selection_cv": {
+    "MAE": 0.4892263143927598,
+    "RMSE": 0.8021818543188493,
+    "R2": 0.6040328034561785,
+    "median_AE": 0.28779202985336516,
+    "n": 413,
+    "log10_RMSE": 0.10561174183109708,
+    "median_absolute_percentage_error": 12.072170175515195
+  },
+  "equal_weight_selection_cv_MAE": 0.4901329246439813,
+  "inverse_weight_selection_cv_MAE": 0.4892263143927598,
+  "note": "CV scores are used for model/feature selection; holdout is the generalization estimate."
+}

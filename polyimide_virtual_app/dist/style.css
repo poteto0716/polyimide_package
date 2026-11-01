@@ -1,0 +1,43 @@
+:root{color-scheme:light;--surface:#fcfcfb;--page:#f4f4f1;--ink:#0b0b0b;--muted:#52514e;--line:#e4e3df;--near:#2a78d6;--far:#b9b8b2;--measured:#eb6834;--warn:#fff4dc;--struct:#ffffff}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--surface:#1a1a19;--page:#111110;--ink:#f0efec;--muted:#c3c2b7;--line:#34332f;--near:#3987e5;--far:#5b5a55;--measured:#d95926;--warn:#3a2e12;--struct:#f5f5f2}}
+*{box-sizing:border-box}
+body{margin:0 auto;max-width:1400px;padding:24px;background:var(--page);color:var(--ink);font:14px/1.6 system-ui,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif}
+header h1{margin:0;font-size:24px}header p{margin:4px 0 16px;color:var(--muted)}
+h2{margin:0;font-size:15px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.tile b{display:block;font-size:22px;font-weight:600}.tile span{color:var(--muted);font-size:12px}
+.filters{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:flex-end;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:12px}
+.filters label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}
+.filters label.check,.check{flex-direction:row;display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink)}
+select,input[type=search]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px;max-width:270px}
+button,.button{font:inherit;font-size:13px;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;text-decoration:none}
+button:hover,.button:hover{border-color:var(--muted)}
+.warning{background:var(--warn);border-radius:8px;padding:8px 14px;margin:0 0 12px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:12px;margin-bottom:12px}
+@media (max-width:1000px){.layout{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;min-width:0}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;margin:8px 0;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.legend i.tri{border-radius:0;clip-path:polygon(50% 0,100% 100%,0 100%)}.legend i.ring{background:transparent;border:1.5px solid var(--ink)}
+#chartWrap{position:relative;height:560px}
+canvas{display:block;width:100%;height:100%;cursor:grab}canvas:active{cursor:grabbing}canvas:focus-visible{outline:2px solid var(--near)}
+#tooltip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 10px;font-size:12px;box-shadow:0 2px 10px #0003;max-width:300px;z-index:2}
+#tooltip b{display:block}
+.hint,.muted{color:var(--muted);font-size:12px;margin:8px 0 0}
+.detail{overflow:auto;max-height:720px}
+.detail h3{font-size:13px;margin:14px 0 4px}
+.structure{background:var(--struct);border-radius:6px;display:block;width:100%;height:auto}
+.detail dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:8px 0;font-size:13px}.detail dt{color:var(--muted)}.detail dd{margin:0;font-variant-numeric:tabular-nums}
+.smiles{word-break:break-all;font:11px ui-monospace,monospace;color:var(--muted)}
+.table-wrap{overflow:auto;max-height:480px;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{position:sticky;top:0;background:var(--surface);text-align:left;color:var(--muted);font-weight:500;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th button{border:0;padding:0;color:inherit}
+td{padding:5px 8px;border-bottom:1px solid var(--line)}td.num{text-align:right;font-variant-numeric:tabular-nums}th.num{text-align:right}
+tbody tr{cursor:pointer}tbody tr:hover,tbody tr.selected{background:color-mix(in srgb,var(--near) 12%,transparent)}
+tbody tr:focus-visible{outline:2px solid var(--near);outline-offset:-2px}
+.notes{color:var(--muted);font-size:13px;margin-top:14px}.notes h2{color:var(--ink)}.notes ul{padding-left:20px;margin:6px 0}
+.structure.monomer{width:62%;margin:0 auto}

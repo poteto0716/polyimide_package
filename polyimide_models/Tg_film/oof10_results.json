@@ -1,0 +1,235 @@
+{
+  "target": "Tg_film",
+  "unit": "C",
+  "n_splits": 10,
+  "rows": 973,
+  "families": 857,
+  "shared_repeat_units": 0,
+  "seed": 20261041,
+  "model_selection": "Previously selected models, hyperparameters and weights fixed; no selection within these folds.",
+  "caveat": "Non-nested assessment: prior feature/model selection used part of this same dataset. All predictions are out-of-fold for fitting, but selection bias can remain. Not equivalent to the untouched holdout.",
+  "aggregation": "Metrics calculated once on all concatenated OOF predictions, not an average of fold R2.",
+  "best_single_oof": {
+    "MAE": 23.239463659076847,
+    "RMSE": 35.86142231489157,
+    "R2": 0.7460186552744188,
+    "median_AE": 15.38808592929172,
+    "n": 973
+  },
+  "ensemble_oof": {
+    "MAE": 23.248733269217254,
+    "RMSE": 35.250095017689276,
+    "R2": 0.7546040552257286,
+    "median_AE": 15.37122784666019,
+    "n": 973
+  },
+  "baseline_oof": {
+    "MAE": 52.1848098663926,
+    "RMSE": 71.50605287196218,
+    "R2": -0.009793123797362968,
+    "median_AE": 38.75999999999999,
+    "n": 973
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "train_rows": 879,
+      "validation_rows": 94,
+      "validation_families": 86,
+      "shared_repeat_units": 0,
+      "MAE": 18.596187253189832,
+      "RMSE": 25.453370905167667,
+      "R2": 0.7869793672744113,
+      "median_AE": 15.117788254312458,
+      "n": 94,
+      "log10_RMSE": 0.04426860661805244,
+      "median_absolute_percentage_error": 5.420565164312984
+    },
+    {
+      "fold": 2,
+      "train_rows": 883,
+      "validation_rows": 90,
+      "validation_families": 86,
+      "shared_repeat_units": 0,
+      "MAE": 21.874678239234328,
+      "RMSE": 30.017837712324045,
+      "R2": 0.7036854227922686,
+      "median_AE": 16.65862533101776,
+      "n": 90,
+      "log10_RMSE": 0.048554367959462455,
+      "median_absolute_percentage_error": 5.769973833603966
+    },
+    {
+      "fold": 3,
+      "train_rows": 887,
+      "validation_rows": 86,
+      "validation_families": 86,
+      "shared_repeat_units": 0,
+      "MAE": 18.274981098896113,
+      "RMSE": 25.449441039790212,
+      "R2": 0.7730349852230212,
+      "median_AE": 14.3375937097219,
+      "n": 86,
+      "log10_RMSE": 0.047940176072011294,
+      "median_absolute_percentage_error": 5.570224313416678
+    },
+    {
+      "fold": 4,
+      "train_rows": 874,
+      "validation_rows": 99,
+      "validation_families": 86,
+      "shared_repeat_units": 0,
+      "MAE": 30.6610825417784,
+      "RMSE": 53.402944120811895,
+      "R2": 0.647664831380001,
+      "median_AE": 15.858572341494238,
+      "n": 99
+    },
+    {
+      "fold": 5,
+      "train_rows": 885,
+      "validation_rows": 88,
+      "validation_families": 86,
+      "shared_repeat_units": 0,
+      "MAE": 22.175338472579956,
+      "RMSE": 33.56854814195649,
+      "R2": 0.7573336492029995,
+      "median_AE": 11.813168676091621,
+      "n": 88,
+      "log10_RMSE": 0.07476265477859043,
+      "median_absolute_percentage_error": 4.616574996350477
+    },
+    {
+      "fold": 6,
+      "train_rows": 833,
+      "validation_rows": 140,
+      "validation_families": 86,
+      "shared_repeat_units": 0,
+      "MAE": 34.3169736919945,
+      "RMSE": 47.24553543844049,
+      "R2": 0.637812838875133,
+      "median_AE": 25.201478219427855,
+      "n": 140,
+      "log10_RMSE": 0.06263618187933628,
+      "median_absolute_percentage_error": 8.324695455647625
+    },
+    {
+      "fold": 7,
+      "train_rows": 878,
+      "validation_rows": 95,
+      "validation_families": 86,
+      "shared_repeat_units": 0,
+      "MAE": 20.25091654945781,
+      "RMSE": 32.65940746465632,
+      "R2": 0.733920474006418,
+      "median_AE": 12.274829650492507,
+      "n": 95,
+      "log10_RMSE": 0.06695491286394743,
+      "median_absolute_percentage_error": 5.046539533369548
+    },
+    {
+      "fold": 8,
+      "train_rows": 887,
+      "validation_rows": 86,
+      "validation_families": 85,
+      "shared_repeat_units": 0,
+      "MAE": 18.02454791941092,
+      "RMSE": 25.556727815179197,
+      "R2": 0.844581483396652,
+      "median_AE": 13.093132341919627,
+      "n": 86,
+      "log10_RMSE": 0.04367230195039538,
+      "median_absolute_percentage_error": 5.166878012824133
+    },
+    {
+      "fold": 9,
+      "train_rows": 865,
+      "validation_rows": 108,
+      "validation_families": 85,
+      "shared_repeat_units": 0,
+      "MAE": 23.719789269967297,
+      "RMSE": 31.91264258085631,
+      "R2": 0.8190755791693092,
+      "median_AE": 18.01813783261902,
+      "n": 108,
+      "log10_RMSE": 0.09706181893874691,
+      "median_absolute_percentage_error": 6.413723509657563
+    },
+    {
+      "fold": 10,
+      "train_rows": 886,
+      "validation_rows": 87,
+      "validation_families": 85,
+      "shared_repeat_units": 0,
+      "MAE": 17.306525799836344,
+      "RMSE": 23.933676554017662,
+      "R2": 0.8642037858102178,
+      "median_AE": 13.194320847205518,
+      "n": 87,
+      "log10_RMSE": 0.04158707615408346,
+      "median_absolute_percentage_error": 4.621381441015023
+    }
+  ],
+  "selection": {
+    "target": "Tg_film",
+    "members": [
+      {
+        "candidate_id": "hybrid__lightgbm__identity__v0",
+        "feature_set": "hybrid",
+        "model": "lightgbm",
+        "target_transform": "identity",
+        "variant": 0,
+        "cv_MAE": 25.065387538194415,
+        "weight": 0.22071826911198963
+      },
+      {
+        "candidate_id": "rdkit__lightgbm__identity__v0",
+        "feature_set": "rdkit",
+        "model": "lightgbm",
+        "target_transform": "identity",
+        "variant": 0,
+        "cv_MAE": 27.497161678088318,
+        "weight": 0.2011985461197657
+      },
+      {
+        "candidate_id": "morgan_r2__hist_gradient_boosting__identity__v0",
+        "feature_set": "morgan_r2",
+        "model": "hist_gradient_boosting",
+        "target_transform": "identity",
+        "variant": 0,
+        "cv_MAE": 28.00683658026682,
+        "weight": 0.1975370883532609
+      },
+      {
+        "candidate_id": "morgan_r3__hist_gradient_boosting__identity__v1",
+        "feature_set": "morgan_r3",
+        "model": "hist_gradient_boosting",
+        "target_transform": "identity",
+        "variant": 1,
+        "cv_MAE": 28.15355686400056,
+        "weight": 0.196507637694819
+      },
+      {
+        "candidate_id": "chemistry__extra_trees__identity__v1",
+        "feature_set": "chemistry",
+        "model": "extra_trees",
+        "target_transform": "identity",
+        "variant": 1,
+        "cv_MAE": 30.0610480576978,
+        "weight": 0.1840384587201648
+      }
+    ],
+    "best_single_candidate": "hybrid__lightgbm__identity__v0",
+    "weight_method": "inverse_CV_MAE",
+    "ensemble_selection_cv": {
+      "MAE": 25.115455009603764,
+      "RMSE": 38.074787589033114,
+      "R2": 0.7262357061314471,
+      "median_AE": 17.118085722895614,
+      "n": 778
+    },
+    "equal_weight_selection_cv_MAE": 25.171573280008804,
+    "inverse_weight_selection_cv_MAE": 25.115455009603764,
+    "note": "CV scores are used for model/feature selection; holdout is the generalization estimate."
+  }
+}

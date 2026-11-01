@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>仮想ポリイミド Tg・弾性率・CTEマップ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>仮想ポリイミド Tg・弾性率・CTEマップ</h1>
+  <p>PubChemにTCIが登録した酸二無水物とジアミンの全組み合わせを、フィルム限定の学習済みモデルで予測し、既存のフィルム実測値と重ねています。弾性率モデルは 0.01 GPa &lt; 値 &lt; 10 GPa の引張測定のうち、物理的な矛盾のないものだけで学習しています。</p>
+</header>
+
+<section class="tiles" id="tiles" aria-label="概要"></section>
+
+<section class="filters" aria-label="絞り込み">
+  <label>縦軸<select id="yAxis"><option value="mod">引張弾性率</option><option value="cte">CTE</option></select></label>
+  <label>パレート前線の向き<select id="direction"><option value="low">高Tg・低い縦軸値</option><option value="high">高Tg・高い縦軸値</option></select></label>
+  <label>酸二無水物<select id="dianhydride"></select></label>
+  <label>酸二無水物・名前検索<input id="searchDianhydride" type="search" placeholder="製品番号・名称"></label>
+  <label>ジアミン<select id="diamineType">
+    <option value="">すべて</option><option value="aromatic">芳香族</option><option value="aliphatic">脂肪族</option><option value="aromatic-aliphatic">芳香族・脂肪族</option></select></label>
+  <label>ジアミン・名前検索<input id="search" type="search" placeholder="製品番号・名称"></label>
+  <label>最低類似度 <output id="simValue"></output><input id="similarity" type="range" min="0" max="1" step="0.05" value="0"></label>
+  <label class="check"><input id="excludeHetero" type="checkbox">ヘテロアリールアミンを除外</label>
+  <label class="check"><input id="excludeFluorine" type="checkbox">フッ素含有ポリマーを除外</label>
+  <label class="check"><input id="showMeasured" type="checkbox" checked>実測を表示</label>
+</section>
+
+<main class="layout">
+  <section class="card chart-card">
+    <div class="card-head"><h2 id="chartTitle"></h2><button id="resetZoom" type="button">表示をリセット</button></div>
+    <div class="legend" id="legend"></div>
+    <div id="chartWrap"><canvas id="chart" tabindex="0" aria-label="Tgと縦軸の物性の散布図。同じ値は下の表でも確認できます。"></canvas><div id="tooltip" hidden></div></div>
+    <p class="hint">予測点や実測点をクリックすると右に構造を表示します。ホイールで拡大、ドラッグで移動できます。</p>
+  </section>
+  <aside class="card detail" id="detail"><h2>構造の詳細</h2><p class="muted">点または表の行を選んでください。</p></aside>
+</main>
+
+<section class="card">
+  <div class="card-head"><h2 id="tableTitle">候補一覧</h2><div class="actions"><label class="check"><input id="paretoOnly" type="checkbox" checked>パレート前線のみ</label><button id="download" type="button">表示中のCSV</button><a class="button" id="mapImage" href="assets/virtual_map.png" target="_blank" rel="noopener">マップ画像(PNG)</a></div></div>
+  <div class="table-wrap"><table id="table"><thead></thead><tbody></tbody></table></div>
+  <p class="hint" id="tableNote"></p>
+</section>
+
+<section class="notes">
+  <h2>読み方の注意</h2>
+  <ul>
+    <li><strong>販売状況は未確認です。</strong>TCIのPubChem登録に基づくため、廃番品が含まれ、新製品が漏れる場合があります。製品リンクで確認してください。</li>
+    <li><strong>類似度</strong>は、Tgと縦軸の物性それぞれの学習データで最も近い反復単位とのMorgan Tanimoto類似度の小さい方です。低いほど外挿で、予測の信頼性は下がります。</li>
+    <li><strong>モデル間のばらつき</strong>はアンサンブル内の標準偏差です。予測誤差そのものではありません。</li>
+    <li><strong>実測との一致行</strong>は学習に使われた構造なので、独立した精度検証にはなりません。精度は10分割検証の値を参照してください。</li>
+    <li>弾性率の予測は学習範囲(約0.03〜9.8 GPa)の外を信頼できません。実測点も同じ範囲に絞っています。</li>
+    <li><strong>CTEは厳密な室温の値ではありません。</strong>元データの大半に測定温度の記載がなく、通常のTMAの報告値です。また、低CTEは高めに、高CTEは低めに予測される傾向があります。</li>
+    <li><strong>フッ素含有ポリマーを除外</strong>は、反復単位にフッ素原子を1つでも含むものを、予測点、実測点、一覧、パレート前線から外します。PFASの法的な定義との照合ではありません。マップ画像(PNG)には反映されません。</li>
+    <li>分子量、配向、イミド化条件、溶解性、重合の可否は考慮していません。</li>
+  </ul>
+</section>
+<script src="app.js"></script>
+</body>
+</html>

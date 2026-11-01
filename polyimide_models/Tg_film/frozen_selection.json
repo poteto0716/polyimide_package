@@ -1,0 +1,62 @@
+{
+  "target": "Tg_film",
+  "members": [
+    {
+      "candidate_id": "hybrid__lightgbm__identity__v0",
+      "feature_set": "hybrid",
+      "model": "lightgbm",
+      "target_transform": "identity",
+      "variant": 0,
+      "cv_MAE": 25.065387538194415,
+      "weight": 0.22071826911198963
+    },
+    {
+      "candidate_id": "rdkit__lightgbm__identity__v0",
+      "feature_set": "rdkit",
+      "model": "lightgbm",
+      "target_transform": "identity",
+      "variant": 0,
+      "cv_MAE": 27.497161678088318,
+      "weight": 0.2011985461197657
+    },
+    {
+      "candidate_id": "morgan_r2__hist_gradient_boosting__identity__v0",
+      "feature_set": "morgan_r2",
+      "model": "hist_gradient_boosting",
+      "target_transform": "identity",
+      "variant": 0,
+      "cv_MAE": 28.00683658026682,
+      "weight": 0.1975370883532609
+    },
+    {
+      "candidate_id": "morgan_r3__hist_gradient_boosting__identity__v1",
+      "feature_set": "morgan_r3",
+      "model": "hist_gradient_boosting",
+      "target_transform": "identity",
+      "variant": 1,
+      "cv_MAE": 28.15355686400056,
+      "weight": 0.196507637694819
+    },
+    {
+      "candidate_id": "chemistry__extra_trees__identity__v1",
+      "feature_set": "chemistry",
+      "model": "extra_trees",
+      "target_transform": "identity",
+      "variant": 1,
+      "cv_MAE": 30.0610480576978,
+      "weight": 0.1840384587201648
+    }
+  ],
+  "best_single_candidate": "hybrid__lightgbm__identity__v0",
+  "weight_method": "inverse_CV_MAE",
+  "ensemble_selection_cv": {
+    "MAE": 25.115455009603764,
+    "RMSE": 38.074787589033114,
+    "R2": 0.7262357061314471,
+    "median_AE": 17.118085722895614,
+    "n": 778
+  },
+  "equal_weight_selection_cv_MAE": 25.171573280008804,
+  "inverse_weight_selection_cv_MAE": 25.115455009603764,
+  "note": "CV scores are used for model/feature selection; holdout is the generalization estimate."
+}

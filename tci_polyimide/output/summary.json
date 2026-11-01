@@ -1,0 +1,18 @@
+{
+ "source": "TCI (Tokyo Chemical Industry)",
+ "retrieved": "2026-10-31",
+ "substances": 30360,
+ "supplemented_products": 1,
+ "substances_without_single_structure": 249,
+ "deposit_years": {
+  "0000": 6242,
+  "2011": 3,
+  "2012": 116,
+  "2015": 21688,
+  "2018": 2311
+ },
+ "dianhydrides": 44,
+ "diamines": 426,
+ "dianhydrides_polyimide_ok": 43,
+ "diamines_polyimide_ok": 257
+}

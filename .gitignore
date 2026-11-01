@@ -1,0 +1,23 @@
+# Decrypted training data. Never commit these.
+polyimide_models/datasets.json
+polyimide_models/features.npz
+polyimide_models/*_dataset.tsv
+polyimide_models/*_audit.tsv
+polyimide_models/review_references.json
+polyimide_models/tensile_modulus_film_range_removed_measurements.tsv
+polyimide_tg_modulus/*.tsv
+# Trained models and per-row evaluation output, which hold measured values.
+*.joblib
+polyimide_models/*/*
+!polyimide_models/*/frozen_selection.json
+!polyimide_models/*/results.json
+!polyimide_models/*/oof10_results.json
+# Files the run scripts create.
+polyimide_optimizer/output/
+polyimide_virtual_app/dist/data.json
+polyimide_virtual_app/dist/structures/
+polyimide_virtual_app/*.xlsx
+.venv/
+__pycache__/
+# Encrypted training data. Distributed separately, never commit.
+training_data.tar.gz.gpg

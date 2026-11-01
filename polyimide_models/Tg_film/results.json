@@ -1,0 +1,242 @@
+{
+  "target": "Tg_film",
+  "unit": "C",
+  "split": {
+    "seed": 20261031,
+    "development_rows": 778,
+    "holdout_rows": 195,
+    "development_families": 685,
+    "holdout_families": 172,
+    "shared_repeat_units": 0,
+    "rule": "Connected families of shared canonical repeat-unit SMILES; same repeat unit never crosses split.",
+    "selection_metric": "development group-CV MAE in original units",
+    "data_rows": 973
+  },
+  "selection": {
+    "target": "Tg_film",
+    "members": [
+      {
+        "candidate_id": "hybrid__lightgbm__identity__v0",
+        "feature_set": "hybrid",
+        "model": "lightgbm",
+        "target_transform": "identity",
+        "variant": 0,
+        "cv_MAE": 25.065387538194415,
+        "weight": 0.22071826911198963
+      },
+      {
+        "candidate_id": "rdkit__lightgbm__identity__v0",
+        "feature_set": "rdkit",
+        "model": "lightgbm",
+        "target_transform": "identity",
+        "variant": 0,
+        "cv_MAE": 27.497161678088318,
+        "weight": 0.2011985461197657
+      },
+      {
+        "candidate_id": "morgan_r2__hist_gradient_boosting__identity__v0",
+        "feature_set": "morgan_r2",
+        "model": "hist_gradient_boosting",
+        "target_transform": "identity",
+        "variant": 0,
+        "cv_MAE": 28.00683658026682,
+        "weight": 0.1975370883532609
+      },
+      {
+        "candidate_id": "morgan_r3__hist_gradient_boosting__identity__v1",
+        "feature_set": "morgan_r3",
+        "model": "hist_gradient_boosting",
+        "target_transform": "identity",
+        "variant": 1,
+        "cv_MAE": 28.15355686400056,
+        "weight": 0.196507637694819
+      },
+      {
+        "candidate_id": "chemistry__extra_trees__identity__v1",
+        "feature_set": "chemistry",
+        "model": "extra_trees",
+        "target_transform": "identity",
+        "variant": 1,
+        "cv_MAE": 30.0610480576978,
+        "weight": 0.1840384587201648
+      }
+    ],
+    "best_single_candidate": "hybrid__lightgbm__identity__v0",
+    "weight_method": "inverse_CV_MAE",
+    "ensemble_selection_cv": {
+      "MAE": 25.115455009603764,
+      "RMSE": 38.074787589033114,
+      "R2": 0.7262357061314471,
+      "median_AE": 17.118085722895614,
+      "n": 778
+    },
+    "equal_weight_selection_cv_MAE": 25.171573280008804,
+    "inverse_weight_selection_cv_MAE": 25.115455009603764,
+    "note": "CV scores are used for model/feature selection; holdout is the generalization estimate."
+  },
+  "screening_combinations": 63,
+  "refined_combinations": 28,
+  "baseline_holdout": {
+    "MAE": 50.710153846153844,
+    "RMSE": 64.49413443415034,
+    "R2": -0.018564918175925538,
+    "median_AE": 40.0,
+    "n": 195,
+    "log10_RMSE": 0.1173874949257689,
+    "median_absolute_percentage_error": 15.112540192926044
+  },
+  "best_single_holdout": {
+    "MAE": 22.975400172700578,
+    "RMSE": 34.80649960097843,
+    "R2": 0.7033331801856809,
+    "median_AE": 14.325355880471932,
+    "n": 195,
+    "log10_RMSE": 0.060278000174031184,
+    "median_absolute_percentage_error": 5.173598050223731
+  },
+  "ensemble_holdout": {
+    "MAE": 22.750318579791834,
+    "RMSE": 34.67903965162264,
+    "R2": 0.7055019649353811,
+    "median_AE": 14.614000823632978,
+    "n": 195,
+    "log10_RMSE": 0.06110379501810648,
+    "median_absolute_percentage_error": 5.423241735567412
+  },
+  "ensemble_holdout_95pct_group_bootstrap": {
+    "MAE": [
+      19.406245999743604,
+      26.405697337461618
+    ],
+    "RMSE": [
+      27.599404892284003,
+      42.577406958904575
+    ],
+    "R2": [
+      0.5491656740853358,
+      0.8149081351685294
+    ]
+  },
+  "holdout_members": [
+    {
+      "name": "hybrid__lightgbm__identity__v0",
+      "MAE": 22.975400172700578,
+      "RMSE": 34.80649960097843,
+      "R2": 0.7033331801856809,
+      "median_AE": 14.325355880471932,
+      "n": 195,
+      "log10_RMSE": 0.060278000174031184,
+      "median_absolute_percentage_error": 5.173598050223731,
+      "cv_MAE": 25.065387538194415
+    },
+    {
+      "name": "rdkit__lightgbm__identity__v0",
+      "MAE": 25.610446256860655,
+      "RMSE": 38.57478396205254,
+      "R2": 0.6356193704540172,
+      "median_AE": 16.356331103891137,
+      "n": 195,
+      "log10_RMSE": 0.06733272833274465,
+      "median_absolute_percentage_error": 6.288762734013507,
+      "cv_MAE": 27.497161678088318
+    },
+    {
+      "name": "morgan_r2__hist_gradient_boosting__identity__v0",
+      "MAE": 26.869106362387896,
+      "RMSE": 37.44670897085446,
+      "R2": 0.6566195323241786,
+      "median_AE": 17.495363180197046,
+      "n": 195,
+      "log10_RMSE": 0.06700231360098728,
+      "median_absolute_percentage_error": 6.635059959297619,
+      "cv_MAE": 28.00683658026682
+    },
+    {
+      "name": "morgan_r3__hist_gradient_boosting__identity__v1",
+      "MAE": 23.95796921569612,
+      "RMSE": 36.398850300215166,
+      "R2": 0.6755680557174457,
+      "median_AE": 14.000648481132487,
+      "n": 195,
+      "log10_RMSE": 0.06501904474727743,
+      "median_absolute_percentage_error": 5.8388111521531245,
+      "cv_MAE": 28.15355686400056
+    },
+    {
+      "name": "chemistry__extra_trees__identity__v1",
+      "MAE": 28.60675128205128,
+      "RMSE": 41.04168238966556,
+      "R2": 0.5875240920238523,
+      "median_AE": 21.756666666666547,
+      "n": 195,
+      "log10_RMSE": 0.06990450083854617,
+      "median_absolute_percentage_error": 8.30902777777779,
+      "cv_MAE": 30.0610480576978
+    }
+  ],
+  "best_single_holdout_homopolymer": {
+    "MAE": 23.019912006917387,
+    "RMSE": 35.55614356893699,
+    "R2": 0.7081693010572,
+    "median_AE": 13.369957908097092,
+    "n": 177,
+    "log10_RMSE": 0.061904901899423596,
+    "median_absolute_percentage_error": 5.113569333458758
+  },
+  "best_single_holdout_copolymer": {
+    "MAE": 22.537700469568584,
+    "RMSE": 26.321365075234123,
+    "R2": -0.14743632106332138,
+    "median_AE": 21.582747793776832,
+    "n": 18,
+    "log10_RMSE": 0.04097281406061511,
+    "median_absolute_percentage_error": 6.433773483412366
+  },
+  "ensemble_holdout_homopolymer": {
+    "MAE": 22.92017792554838,
+    "RMSE": 35.47618787901156,
+    "R2": 0.7094803144176874,
+    "median_AE": 14.614000823632978,
+    "n": 177,
+    "log10_RMSE": 0.06295987640603512,
+    "median_absolute_percentage_error": 5.598143156481166
+  },
+  "ensemble_holdout_copolymer": {
+    "MAE": 21.080035013185775,
+    "RMSE": 25.54829396174457,
+    "R2": -0.08102461849343046,
+    "median_AE": 14.965237866499194,
+    "n": 18,
+    "log10_RMSE": 0.03833183745972015,
+    "median_absolute_percentage_error": 4.833666292820016
+  },
+  "interpretable_importance_model": "chemistry__extra_trees__identity__v1",
+  "individual_features_top5": [
+    {
+      "feature": "mean_NumRotatableBonds",
+      "holdout_MAE_increase": 28.841690598290597,
+      "permutation_std": 2.994114435478272
+    },
+    {
+      "feature": "mean_BertzCT",
+      "holdout_MAE_increase": 1.6315078062678048,
+      "permutation_std": 0.27328401879924386
+    },
+    {
+      "feature": "mean_RingCount",
+      "holdout_MAE_increase": 1.5778218803418789,
+      "permutation_std": 0.1776559040510579
+    },
+    {
+      "feature": "mean_FractionCSP3",
+      "holdout_MAE_increase": 1.4009282621082577,
+      "permutation_std": 0.3299492198603822
+    },
+    {
+      "feature": "mean_BalabanJ",
+      "holdout_MAE_increase": 1.298898062678066,
+      "permutation_std": 0.8541955285424483
+    }
+  ],
+  "artifact_reload_prediction_check": "passed"
+}
