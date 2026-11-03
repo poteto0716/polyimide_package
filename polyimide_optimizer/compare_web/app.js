@@ -222,15 +222,13 @@ function renderDetail(){
     if(r.p_region!=null)b.push(`<span class="badge">目標達成確率 ${pct(r.p_region)}</span>`);
     if(r.similarity_to_training!=null)b.push(`<span class="badge">学習データとの類似度 ${r.similarity_to_training.toFixed(2)}</span>`);
     if(r.p_beyond!=null)b.push(`<span class="badge">実測の前線を超える確率 ${pct(r.p_beyond)}</span>`);
-    if(r.soft_w)b.push(`<span class="badge">ソフトセグメント ${(100*r.soft_w).toFixed(0)} wt%</span>`);
     if(r.beaten)b.push('<span class="badge warn">予測値は実測の前線に負けている</span>');
     if(r.extrapolated)b.push('<span class="badge warn">繰り返し単位の数が学習データより多い(外挿)</span>');
-    const hard=r.soft_w&&r.hard&&r.hard.Tg!=null?`<h3>ハード部分だけの予測(ソフトセグメントを除いた組成)</h3>${valuesTable(r.hard,false)}<p class="muted">予測値 = ハード部分の予測 + 傾き × ソフトセグメント重量分率。傾きは追加した実測から推定しています。</p>`:'';
     const nb=r.neighbors.map(([id,s])=>{const n=byId.get(id);return`<div class="neighbor"><div class="head" data-id="${id}"><b>類似度 ${s.toFixed(2)}</b><span class="muted">${n.kind==='observation'?'追加した実測':n.kind==='copolymer'?'共重合体':'単独重合体'}${n.refs.length?' ・文献 '+esc(n.refs.join(', ')):''}</span></div>${n.label?`<div class="names">${esc(n.label)}</div>`:''}${valuesTable(n,false)}${monomersHtml(n,true)}<details><summary>繰り返し単位</summary>${structs(n)}</details></div>`}).join('');
     box.innerHTML=`<h2>${isNext(r)?`次の実験候補 #${r.next_ranks.join(', #')}`:'パレート解'}</h2>
       <div class="names">酸二無水物: ${esc(r.acids)}<br>ジアミン: ${esc(r.diamines)}</div>
       <div class="badges">${b.join('')}</div>
-      <h3>予測値</h3>${valuesTable(r,true)}${hard}
+      <h3>予測値</h3>${valuesTable(r,true)}
       <h3>モノマー(数字は各側のモル分率)</h3>${monomersHtml(r,false)}
       <h3>繰り返し単位</h3>${structs(r)}
       <h3>構造の近い学習データ(実測値)</h3><p class="muted">「線で結ぶ」にチェックを入れると、グラフ上でも点線で結びます。</p>${nb}`;
@@ -315,7 +313,6 @@ function renderNotes(){
     '<strong>類似度</strong>は組成で重み付けしたMorganカウント指紋のTanimoto類似度です(最適化のガウス過程と同じ指紋)。低いほど学習データから遠く、予測の信頼性は下がります。',
     '90%予測区間はモデルの誤差を含む幅です。CTEのように実測の少ない物性では区間が非常に広くなります。'];
   if(isRegion)n.push('<strong>目標達成確率</strong>は、予測の誤差を正規分布と見なしたときに目標領域に入る確率です。「どれか1つが達成する確率」はモデルが平均的に正しいと仮定した楽観的な値です。');
-  if(designs.some(d=>d.soft_w))n.push('<strong>ソフトセグメント入りの設計</strong>は、ハード部分の予測に、追加した実測から推定した傾きを足したものです。実測した重量分率の範囲を超える設計は外挿です。');
   if(meta.n_front)n.push('<strong>実測の前線</strong>は、学習データと追加した実測のうち、最適化の目的で他に負けていないポリマーです。候補はこれを超える必要があります。');
   $('notes').innerHTML=n.map(s=>`<li>${s}</li>`).join('');
 }

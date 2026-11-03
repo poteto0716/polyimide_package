@@ -76,9 +76,7 @@ python -m http.server 8766 --bind 127.0.0.1 --directory polyimide_virtual_app/di
 | `build_monomer_lists.py` | 候補一覧を作り直す。編集した候補一覧は上書きされる |
 | `test_mobo.py` | 組成の規則と略称の解決を検査する |
 | `region_search.py` | 物性の目標領域(例 Tg 240〜260 ℃、弾性率 1 GPa以下)に入る確率が高く、学習データから離れた組成を探す |
-| `soft_segment.py`, `soft_monomers.csv` | 長鎖シロキサンジアミンなどのソフトセグメント。`region_search.py` が使う |
 | `compare_with_training.py`, `compare_web/` | 最適化の結果を学習データと重ねて見るWebページを作る |
-| `examples/` | 実測ファイルの書式の例(値は架空) |
 | `output*/` | 実行すると作られる。`pareto_predicted.csv`(パレート解)、`next_experiments.csv`(次の実験候補)、`run_summary.json`(実行条件)など。比較ページ `compare/` には実測値が入るので、コミットしない |
 
 ### `polyimide_virtual_app/`
@@ -200,14 +198,11 @@ python polyimide_optimizer/mobo_copolyimide.py --observations measured.csv
 
 ```bash
 python polyimide_optimizer/region_search.py --region 'Tg>=350' --region 'modulus<=3'
-python polyimide_optimizer/region_search.py --region 'Tg=240-260' --region 'modulus<=1.0' \
-  --fix-diamine 'MESi3200=0.05-0.3' --observations polyimide_optimizer/examples/observations_siloxane_example.csv \
-  --output-dir polyimide_optimizer/output_region_siloxane
+python polyimide_optimizer/region_search.py --region 'Tg=240-260' --region 'modulus<=2.0' \
+  --output-dir polyimide_optimizer/output_region_tg250
 ```
 
 出力は `region_candidates.csv`(P(領域)と類似度のパレート解)、`region_batch.csv`(次の実験候補)、`run_summary.json` です。
-
-- **ソフトセグメント:** `soft_monomers.csv` のモノマー(例 Mn 3200 のシロキサンジアミン MESi3200)は学習データの範囲外なので、モデルに直接は聞きません。ソフト成分を除いたハード部分の予測に「傾き × ソフト成分の重量分率」を足し、傾きは `--observations` の実測から推定します。実測がないと傾きは事前分布のままで、予測は当てになりません。
 
 ### 結果を学習データと比べる
 

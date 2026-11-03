@@ -75,15 +75,11 @@ def canon(smiles):
     return Chem.MolToSmiles(m) if m is not None else smiles
 
 def monomer_names():
-    """Canonical SMILES -> (abbreviation, name) from the candidate lists and soft_monomers.csv."""
+    """Canonical SMILES -> (abbreviation, name) from the candidate lists."""
     out={}
     for file in ['acid_candidates.csv','diamine_candidates.csv']:
         for r in pd.read_csv(HERE/file,encoding='utf-8-sig',keep_default_na=False).to_dict('records'):
             if r.get('smiles'):out.setdefault(canon(r['smiles']),(r['abbreviation'],r['name']))
-    try:
-        import soft_segment
-        for r in soft_segment.read_soft_monomers():out.setdefault(canon(r['smiles']),(r['abbreviation'],r['name']))
-    except Exception:pass
     return out
 
 def monomers_from_units(units,fractions,names,cache={}):
@@ -120,7 +116,7 @@ def monomer_label(mons):
 
 def canonical_design(row):
     """Same composition regardless of the order the monomers are listed in."""
-    side=lambda names,fracs:tuple(sorted(zip(names.split(' / '),map(float,fracs.split(' / ')))))
+    side=lambda names,fracs:tuple(sorted(zip(str(names).split(' / '),map(float,str(fracs).split(' / ')))))
     return side(row.acids,row.acid_fractions),side(row.diamines,row.diamine_fractions)
 
 def opt_float(v):
@@ -155,8 +151,8 @@ def load_designs(run_dir):
                 d=designs[key]=dict(acids=label(key[0]),diamines=label(key[1]),pareto=False,next_ranks=[],monomers=monomers_from_row(r),
                     units=json.loads(r.repeat_units_json),fractions=json.loads(r.repeat_unit_fractions_json),
                     extrapolated=bool(r.composition_extrapolated),min_unit_similarity=opt_float(getattr(r,'min_similarity_to_training',None)),
-                    p_region=opt_float(getattr(r,'p_region',None)),soft_w=opt_float(getattr(r,'soft_weight_fraction',None)),
-                    hard={p:opt_float(getattr(r,f'hard_part_{p}_pred',None)) for p in PROPS},similarity_to_training=opt_float(getattr(r,'similarity_to_training',None)),
+                    p_region=opt_float(getattr(r,'p_region',None)),
+                    similarity_to_training=opt_float(getattr(r,'similarity_to_training',None)),
                     novelty=getattr(r,'novelty',None),novelty_ja=getattr(r,'novelty_ja',None),
                     gap=opt_float(getattr(r,'composition_gap_to_measured',None)),p_beyond=opt_float(getattr(r,'p_beyond_measured_front',None)),
                     beaten=bool(getattr(r,'dominated_by_measured_front',False)),
