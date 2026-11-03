@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
-from mobo_copolyimide import UNITS,Side,Space,dominance_ranks,read_monomers,mixing_rule
+from mobo_copolyimide import UNITS,Side,Space,dominance_ranks,read_monomers,mixing_rule,unit_key,dominated_by,parse_design_side
 
 def sides(fix_acid=(),fix_diamine=(),max_kinds=2,min_kinds=1,min_fraction=.05,step=.05):
     a=Side('acid',read_monomers(HERE/'acid_candidates.csv',False),min_kinds,max_kinds,min_fraction,step)
@@ -59,6 +59,33 @@ def main():
         species,units=limited.random(np.random.default_rng(_))
         assert species[0]==oda and len(species)==2 and species[1] in limited.free and sum(units)==UNITS
     print('fixed monomer stays outside a restricted candidate list')
+    # One composition, one design, whatever order the monomers come in.
+    space=sides()
+    for _ in range(300):
+        d=space.random(np.random.default_rng(_))
+        for side,(species,units) in zip((space.acids,space.diamines),d):
+            assert list(species)==sorted(species),d
+            assert side.canonical(species[::-1],units[::-1])==(species,units)
+    a=space.acids
+    assert parse_design_side(a,'PMDA=0.3;s-BPDA=0.7')==parse_design_side(a,'s-BPDA=0.7;PMDA=0.3')
+    fixed=sides(fix_acid=['s-BPDA'])
+    d=fixed.acids.repair([fixed.acids.resolve('s-BPDA'),fixed.acids.resolve('PMDA')],[1,1])
+    assert d[0][0]==fixed.acids.resolve('s-BPDA');print('compositions are canonical')
+    # The same repeat unit cut at two places gets one key.
+    a1='*c1ccc(-c2ccc(N3C(=O)c4ccc(C(c5ccc6c(c5)C(=O)N(*)C6=O)(C(F)(F)F)C(F)(F)F)cc4C3=O)cc2C(F)(F)F)c(C(F)(F)F)c1'
+    a2='*c1ccc2c(c1)C(=O)N(c1ccc(-c3ccc(N4C(=O)c5ccc(C(*)(C(F)(F)F)C(F)(F)F)cc5C4=O)cc3C(F)(F)F)c(C(F)(F)F)c1)C2=O'
+    assert unit_key(a1)==unit_key(a2) and unit_key(a1)!=unit_key('*c1ccc(-n2c(=O)c3cc4c(=O)n(*)c(=O)c4cc3c2=O)cc1');print('repeat-unit keys ignore the cut')
+    # Composition gap: a measured film plus 5 % of something else is 0.05 away.
+    from mobo_copolyimide import Known
+    k=Known.__new__(Known);k.rows=[];k.X=np.zeros((0,2048),np.float32)
+    pp,bp,new='*c1ccc(-n2c(=O)c3cc4c(=O)n(*)c(=O)c4cc3c2=O)cc1','*c1ccc(N2C(=O)c3ccc(-c4ccc5c(c4)C(=O)N(*)C5=O)cc3C2=O)cc1','*c1ccc(Oc2ccc(-n3c(=O)c4cc5c(=O)n(*)c(=O)c5cc4c3=O)cc2)cc1'
+    k.extend([dict(units=[pp,bp],fractions=[.5,.5],sequence='random',source='training',values={'Tg':450.})])
+    kind,gap,_=k.novelty([pp,bp,new],[.475,.475,.05],.1);assert kind=='measured' and abs(gap-.05)<1e-9,(kind,gap)
+    kind,gap,_=k.novelty([pp,bp],[.8,.2],.1);assert kind=='known_system' and abs(gap-.3)<1e-9
+    assert k.novelty([pp,new],[.5,.5],.1)[0]=='new_units' and k.novelty([new],[1.],.1)[1]==1.
+    print('composition gap ok')
+    front=np.array([[2.,2.],[3.,0.]])
+    assert dominated_by(front,np.array([[1.,1.],[2.,2.],[2.5,2.5],[3.,0.]])).tolist()==[True,False,False,False]
     values=np.array([[1.,1.],[2.,2.],[3.,0.],[0.,0.]])
     assert dominance_ranks(values,np.zeros(4)).tolist()==[1,0,0,2]
     assert dominance_ranks(values,np.array([0,1.,0,0]))[1]==2

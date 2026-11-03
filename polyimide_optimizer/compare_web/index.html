@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ベイズ最適化の設計と学習データの比較</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>ベイズ最適化の設計と学習データの比較</h1>
+  <p>ベイズ最適化(<code>mobo_copolyimide.py</code> または <code>region_search.py</code>)が出した設計を、フィルムの学習データ(実測値)に重ねています。設計の値はモデルの予測値です。</p>
+  <p class="warning">このページには実測値と文献番号が含まれます。外部に共有しないでください。</p>
+</header>
+
+<section class="tiles" id="tiles" aria-label="概要"></section>
+
+<section class="filters" aria-label="表示の切り替え">
+  <label>グラフ<select id="view">
+    <option value="tgmod">Tg と 引張弾性率</option>
+    <option value="tgcte">Tg と CTE</option>
+    <option value="modcte">引張弾性率 と CTE</option>
+    <option value="map">構造マップ(構造の近さ)</option>
+  </select></label>
+  <label>設計<select id="designFilter">
+    <option value="all">パレート解と次の実験候補</option>
+    <option value="next">次の実験候補だけ</option>
+    <option value="none">表示しない</option>
+  </select></label>
+  <label>モノマー名で絞り込み<input id="search" type="search" placeholder="例: TMBZ, s-BPDA"></label>
+  <label class="check"><input id="showTraining" type="checkbox" checked>学習データ(実測)を表示</label>
+  <label class="check"><input id="showRank" type="checkbox" checked>候補の順位を表示</label>
+  <label class="check"><input id="showNeighbors" type="checkbox">選んだ設計と構造の近い学習データを線で結ぶ</label>
+</section>
+
+<main class="layout">
+  <section class="card chart-card">
+    <div class="card-head"><h2 id="chartTitle"></h2><button id="resetZoom" type="button">表示をリセット</button></div>
+    <div class="legend" id="legend"></div>
+    <div id="chartWrap"><canvas id="chart" tabindex="0" aria-label="設計と学習データの散布図。同じ値は下の表でも確認できます。"></canvas><div id="tooltip" hidden></div></div>
+    <p class="hint" id="chartHint"></p>
+  </section>
+  <aside class="card detail" id="detail" aria-live="polite"><h2>詳細</h2><p class="muted">点または表の行を選んでください。</p></aside>
+</main>
+
+<section class="card">
+  <div class="card-head"><h2 id="tableTitle">設計一覧</h2><div class="actions"><label class="check"><input id="nextOnly" type="checkbox" checked>次の実験候補のみ</label></div></div>
+  <div class="table-wrap"><table id="table"><thead></thead><tbody></tbody></table></div>
+  <p class="hint" id="tableNote"></p>
+</section>
+
+<section class="notes">
+  <h2>読み方の注意</h2>
+  <ul id="notes"></ul>
+</section>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

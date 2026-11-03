@@ -20,12 +20,35 @@ Tg, log rule for modulus, linear for CTE) is added to the uncertainty, and the r
  3. Expected hypervolume improvement picks a batch of experiments from everything evaluated, with
     a kriging-believer update so the batch does not repeat itself.
 
+What makes the batch worth running in the lab:
+ - Improvement is measured against the Pareto front of polymers already measured (training data
+   plus --observations; a property not measured for a polymer takes the ensemble's prediction),
+   not against this run's own predictions. A design scores only if it may beat known films.
+ - A composition counts once: monomer order does not matter ('PMDA / BPDA' = 'BPDA / PMDA').
+ - A design whose repeat-unit composition differs from a measured polymer by at most
+   --remeasure-tolerance (mole fraction; default 0.1) is already measured and is left out of the
+   batch. A measured film plus 5 % of another monomer differs by about 0.05, so it is left out.
+ - Each monomer is at least --min-fraction (default 0.1) of its side, so a forced second diamine
+   cannot shrink to a trace that leaves the film unchanged.
+ - At most --max-per-system designs per monomer set, so one batch covers different chemistries
+   instead of ratio steps of one copolymer. Ratio scans of a promising set come from a follow-up
+   run with --fix-acid / --fix-diamine.
+ - Every row says how new it is (novelty: measured / known_system / known_units / new_units), its
+   most similar measured polymer and that polymer's measured values, and whether the measured front
+   already dominates its prediction, and p_beyond_measured_front, the probability that its true
+   properties meet the constraints and are not dominated by the measured front (model uncertainty
+   only; the scatter between measurements is left out). Repeat units are compared after joining their two ends into a
+   ring, so the same polymer cut at a different place still matches.
+
+Outputs: pareto_predicted.csv, next_experiments.csv, measured_front.csv, run_summary.json.
+
 Examples:
  .venv/bin/python polyimide_optimizer/mobo_copolyimide.py --constraint 'Tg>=300'
  .venv/bin/python polyimide_optimizer/mobo_copolyimide.py --fix-acid 'PMDA=0.5' --fix-diamine ODA
  .venv/bin/python polyimide_optimizer/mobo_copolyimide.py --fix-acid 'PMDA=0.2-0.6' --n-diamines 3
  .venv/bin/python polyimide_optimizer/mobo_copolyimide.py --n-acids 2 --n-diamines 2 --acid-candidates 'PMDA;BPDA;6FDA;ODPA'
  .venv/bin/python polyimide_optimizer/mobo_copolyimide.py --observations measured.csv
+ .venv/bin/python polyimide_optimizer/mobo_copolyimide.py --constraint 'Tg>=300' --new-systems-only
  .venv/bin/python polyimide_optimizer/mobo_copolyimide.py --check-calibration
 
 Fix syntax: NAME (species fixed, fraction free), NAME=0.5 (fraction fixed), NAME=0.2-0.6 (range).
@@ -58,6 +81,7 @@ SIGNAL_SHARES=[.1,.3,.5,.7,.9]
 EHVI_POINTS=1024
 TRAINED_UNITS=3
 BATCH_POOL=300
+POOL_PER_SYSTEM=5
 FP_GENERATOR=rdFingerprintGenerator.GetMorganGenerator(radius=2,fpSize=2048)
 
 def canonical(smiles):
@@ -133,7 +157,14 @@ class Side:
             i=max(open_slots,key=lambda k:goal[k]-units[k])
             add=min(self.step,highs[i]-units[i],left)
             units[i]+=add;left-=add
-        return tuple(species),tuple(units)
+        return self.canonical(species,units)
+    def canonical(self,species,units):
+        """One form per composition: fixed monomers first in their given order, the rest by index.
+        Without this, 'PMDA / BPDA' and 'BPDA / PMDA' at swapped fractions count as two designs."""
+        order=[f[0] for f in self.fixed];pairs=list(zip(species,units))
+        head=[p for s in order for p in pairs if p[0]==s]
+        pairs=head+sorted(p for p in pairs if p[0] not in order)
+        return tuple(p[0] for p in pairs),tuple(p[1] for p in pairs)
     def random(self,rng):
         count=int(rng.integers(self.free_min,self.free_max+1))
         chosen=[self.free[i] for i in rng.choice(len(self.free),count,replace=False)] if count else []
@@ -181,6 +212,9 @@ class Space:
         units=[self.repeat_unit(i,j)[0] for i in a for j in d]
         fractions=[p*q/UNITS**2 for p in x for q in y]
         return units,fractions
+    def system(self,design):
+        """The monomer set, ignoring fractions: designs that one synthesis series would cover."""
+        return tuple(sorted(design[0][0])),tuple(sorted(design[1][0]))
     def ambiguous(self,design):
         return any(self.repeat_unit(i,j)[1] for i in design[0][0] for j in design[1][0])
     def random(self,rng):
@@ -202,6 +236,84 @@ def composition_fingerprint(units,fractions):
 def tanimoto(A,B):
     product=A@B.T
     return product/((A*A).sum(1)[:,None]+(B*B).sum(1)[None]-product+1e-9)
+
+def unit_key(smiles,cache={}):
+    """Name a repeat unit independently of where it was cut: join the two attachment atoms into a
+    ring and take its canonical SMILES. 6FDA-TFMB cut at the diamine or at the CF3 carbon then match."""
+    if smiles in cache:return cache[smiles]
+    mol=Chem.MolFromSmiles(smiles);key=None
+    if mol is not None:
+        stars=[a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum()==0]
+        key=Chem.MolToSmiles(mol)
+        if len(stars)==2 and all(mol.GetAtomWithIdx(i).GetDegree()==1 for i in stars):
+            ends=[mol.GetAtomWithIdx(i).GetNeighbors()[0].GetIdx() for i in stars]
+            if ends[0]!=ends[1] and mol.GetBondBetweenAtoms(*ends) is None:
+                ring=Chem.RWMol(mol);ring.AddBond(ends[0],ends[1],Chem.BondType.SINGLE)
+                for i in sorted(stars,reverse=True):ring.RemoveAtom(i)
+                try:
+                    ring=ring.GetMol();Chem.SanitizeMol(ring);key=Chem.MolToSmiles(ring)
+                except Exception:pass
+    cache[smiles]=key or smiles
+    return cache[smiles]
+
+class Known:
+    """Polymers that have been measured: the training rows of every target, plus --observations.
+
+    Used to tell how new a design is, to find its nearest measured polymer, and to build the
+    measured Pareto front that new experiments have to beat."""
+    def __init__(self):
+        data=json.loads((MODELS/'datasets.json').read_text());by_key={}
+        for name,target in TARGETS.items():
+            for r in data[target]:
+                total=sum(r['mole_fractions'])
+                row=by_key.setdefault(r['chemistry_key'],dict(units=list(r['components']),fractions=[f/total for f in r['mole_fractions']],
+                                                               sequence=r.get('sequence_type','random'),values={},source='training'))
+                row['values'][name]=float(r['value'])
+        self.rows=[];self.X=np.zeros((0,2048),np.float32)
+        self.extend(list(by_key.values()))
+    def extend(self,rows):
+        for r in rows:
+            fractions={}
+            for s,f in zip(r['units'],r['fractions']):fractions[unit_key(s)]=fractions.get(unit_key(s),0)+f
+            r['unit_fractions']=fractions
+        self.rows+=rows
+        self.X=np.vstack([self.X,np.array([composition_fingerprint(r['units'],r['fractions']) for r in rows],np.float32).reshape(-1,2048)])
+        self.by_set={};self.unit_keys=set();self.by_unit={}
+        for i,r in enumerate(self.rows):
+            self.by_set.setdefault(frozenset(r['unit_fractions']),[]).append(i);self.unit_keys.update(r['unit_fractions'])
+            for k in r['unit_fractions']:self.by_unit.setdefault(k,[]).append(i)
+    def add_observations(self,items,space):
+        rows=[]
+        for design,values in items:
+            units,fractions=space.composition(design)
+            rows.append(dict(units=units,fractions=fractions,sequence='random',source='observation',
+                             values={short_name(t):v for t,v in values.items()}))
+        if rows:self.extend(rows)
+    def composition_gap(self,units,fractions):
+        """Smallest share of the composition (repeat-unit mole fraction, 0-1) that differs from a
+        measured polymer: 1 - sum over units of min(mine, theirs). Adding 5 % of a new diamine to a
+        measured film gives about 0.05; a polymer sharing no repeat unit with any measured one gives 1."""
+        mine={}
+        for s,f in zip(units,fractions):mine[unit_key(s)]=mine.get(unit_key(s),0)+f
+        best,row=1.,None
+        for i in {i for k in mine for i in self.by_unit.get(k,())}:
+            theirs=self.rows[i]['unit_fractions']
+            gap=1-sum(min(f,theirs.get(k,0)) for k,f in mine.items())
+            if gap<best:best,row=gap,i
+        return max(best,0.),row
+    def novelty(self,units,fractions,tolerance):
+        """('measured' | 'known_system' | 'known_units' | 'new_units', composition gap, closest row).
+        'measured' means the composition differs from a measured polymer by at most `tolerance`."""
+        gap,row=self.composition_gap(units,fractions)
+        if gap<=tolerance+1e-9:return 'measured',gap,row
+        keys={unit_key(s) for s in units}
+        if frozenset(keys) in self.by_set:return 'known_system',gap,row
+        return ('known_units' if keys<=self.unit_keys else 'new_units'),gap,row
+    def nearest(self,X):
+        """Index and Tanimoto similarity of the most similar measured polymer, per row of X."""
+        if not len(X):return np.zeros(0,int),np.zeros(0)
+        S=tanimoto(np.asarray(X,np.float32),self.X);best=S.argmax(1)
+        return best,S[np.arange(len(X)),best]
 
 class ResidualGP:
     """Zero-mean GP on the ensemble's error, in model space (log10 for modulus)."""
@@ -317,6 +429,9 @@ class Problem:
         self.signs=np.array([s for _,s in objectives],dtype=float)
     def utilities(self,mean,sd,kappa=0.):
         return (mean[:,self.index]*self.signs+kappa*sd[:,self.index]) if len(mean) else np.empty((0,len(self.index)))
+    def score(self,designs,mean,sd,kappa=0.):
+        """What NSGA-II maximizes; region_search.py overrides it with objectives that need the designs."""
+        return self.utilities(mean,sd,kappa)
     def violation(self,mean):
         total=np.zeros(len(mean))
         for target,sign,bound in self.constraints:
@@ -370,7 +485,7 @@ def nsga2(space,surrogate,problem,kappa,rng,population,generations,mutation,seed
         if d not in designs:designs.append(d)
     for generation in range(generations+1):
         mean,sd=surrogate.evaluate(designs)
-        values=problem.utilities(mean,sd,kappa);violation=problem.violation(mean)+problem.penalty(designs)
+        values=problem.score(designs,mean,sd,kappa);violation=problem.violation(mean)+problem.penalty(designs)
         chosen,ranks,crowd=select_survivors(values,violation,population)
         designs=[designs[i] for i in chosen];ranks=ranks[chosen];crowd=crowd[chosen]
         if generation%10==0 or generation==generations:
@@ -391,13 +506,55 @@ def pareto_mask(values,violation):
     ranks=dominance_ranks(values,violation)
     return (ranks==0)&(violation<=0)
 
-def select_batch(surrogate,problem,designs,mean,sd,mask,size,box_margin=.1):
-    """Greedy batch by expected hypervolume improvement with kriging-believer variance updates."""
+def known_front(known,surrogate,problem):
+    """Model-space values of every measured polymer (measured where available, the production
+    ensemble's prediction for the rest) and which of them form the feasible Pareto front."""
+    names=[short_name(t) for t in problem.targets]
+    values=np.full((len(known.rows),len(names)),np.nan);measured=np.zeros_like(values,bool)
+    for i,r in enumerate(known.rows):
+        for k,(n,t) in enumerate(zip(names,problem.targets)):
+            if n in r['values']:values[i,k]=to_model_space(t,np.array(r['values'][n]));measured[i,k]=True
+    missing=np.where(np.isnan(values).any(1))[0]
+    if len(missing):
+        records=[dict(components=known.rows[i]['units'],mole_fractions=known.rows[i]['fractions'],sequence_type=known.rows[i]['sequence']) for i in missing]
+        for k,t in enumerate(problem.targets):
+            gaps=np.isnan(values[missing,k])
+            if gaps.any():
+                predicted=to_model_space(t,surrogate.models[t].predict([records[j] for j in np.where(gaps)[0]]))
+                values[missing[gaps],k]=predicted
+    utilities=problem.utilities(values,np.zeros_like(values));violation=problem.violation(values)
+    return values,measured,utilities,pareto_mask(utilities,violation)
+
+def dominated_by(front,values):
+    """True where a row of values (maximize) is dominated by some row of front."""
+    if not len(front) or not len(values):return np.zeros(len(values),bool)
+    return np.array([bool(np.any(np.all(front>=v,axis=1)&np.any(front>v,axis=1))) for v in values])
+
+def beyond_front_probability(problem,mean,sd,front,samples=2000,seed=0):
+    """Probability that the design's true properties (posterior mean and latent sd, without the
+    scatter between measurements) meet the constraints and are not dominated by the measured front."""
+    if not len(mean):return np.zeros(0)
+    rng=np.random.default_rng(seed);total=sd
+    out=np.zeros(len(mean))
+    for i in range(len(mean)):
+        draws=mean[i]+total[i]*rng.standard_normal((samples,mean.shape[1]))
+        ok=problem.violation(draws)<=0
+        u=problem.utilities(draws,np.zeros_like(draws))
+        if len(front):ok&=~np.array([bool(np.any(np.all(front>=v,axis=1)&np.any(front>v,axis=1))) for v in u])
+        out[i]=ok.mean()
+    return out
+
+def select_batch(surrogate,problem,designs,mean,sd,front,size,systems,max_per_system,box_margin=.1):
+    """Greedy batch by expected hypervolume improvement over `front` (maximize, model space), with
+    kriging-believer variance updates and at most max_per_system designs from one monomer set."""
     values=problem.utilities(mean,sd);latent=sd[:,problem.index];feasible=problem.feasibility(mean,sd)
-    front=values[mask] if mask.any() else values[:0]
+    if not len(values):return [],[]
     reference=front.min(0) if len(front) else values.min(0)
     span=(front.max(0) if len(front) else values.max(0))-reference
-    low=reference-box_margin*(span+1e-6);high=np.maximum((values+3*latent).max(0),low+1e-6)
+    low=reference-box_margin*(span+1e-6)
+    top=(values+3*latent).max(0)
+    if len(front):top=np.maximum(top,front.max(0))
+    high=np.maximum(top,low+1e-6)
     grid=low+qmc.Sobol(values.shape[1],seed=0).random(EHVI_POINTS)*(high-low)
     if len(front):grid=grid[~np.any(np.all(front[None]>=grid[:,None],axis=2),axis=1)]
     def ehvi(mu,sigma,points):
@@ -407,7 +564,13 @@ def select_batch(surrogate,problem,designs,mean,sd,mask,size,box_margin=.1):
             score[start:start+256]=norm.cdf(z).prod(2).mean(1)
         return score
     first=ehvi(values,latent,grid)*feasible
-    pool=np.argsort(-first)[:BATCH_POOL];mu=values[pool];sigma2=latent[pool]**2;picked=[];gains=[]
+    # The pool keeps a few compositions per monomer set, so one strong set cannot crowd out the rest.
+    pool=[];per_system={}
+    for i in np.argsort(-first):
+        if per_system.get(systems[i],0)<POOL_PER_SYSTEM:
+            pool.append(i);per_system[systems[i]]=per_system.get(systems[i],0)+1
+            if len(pool)==BATCH_POOL:break
+    pool=np.array(pool,int);mu=values[pool];sigma2=latent[pool]**2;picked=[];gains=[];used={}
     X=np.array([composition_fingerprint(*surrogate.space.composition(designs[i])) for i in pool])
     covariances=[surrogate.gps[problem.targets[k]].covariance(X) for k in problem.index]
     noises=[surrogate.gps[problem.targets[k]].noise for k in problem.index]
@@ -415,7 +578,11 @@ def select_batch(surrogate,problem,designs,mean,sd,mask,size,box_margin=.1):
         if not len(grid):break
         score=ehvi(mu,np.sqrt(np.maximum(sigma2,1e-10)),grid)*feasible[pool]
         score[picked]=-1
-        best=int(np.argmax(score));picked.append(best);gains.append(float(score[best]))
+        for j,i in enumerate(pool):
+            if used.get(systems[i],0)>=max_per_system:score[j]=-1
+        best=int(np.argmax(score))
+        if score[best]<0:break
+        picked.append(best);gains.append(float(score[best]));used[systems[pool[best]]]=used.get(systems[pool[best]],0)+1
         # Believe the mean at the picked point: the front grows and nearby variance shrinks.
         grid=grid[~np.all(mu[best]>=grid,axis=1)]
         for k in range(mu.shape[1]):
@@ -423,8 +590,15 @@ def select_batch(surrogate,problem,designs,mean,sd,mask,size,box_margin=.1):
             covariances[k]=c-update;sigma2[:,k]=np.diag(covariances[k])
     return [int(pool[i]) for i in picked],gains
 
-def table(space,surrogate,problem,designs,mean,sd,training_max):
+NOVELTY_JA={'measured':'測定済みの組成とほぼ同じ(差がtolerance以下)','known_system':'測定済みの組み合わせで比率が違う',
+            'known_units':'既知の繰り返し単位の新しい組み合わせ','new_units':'未測定の繰り返し単位を含む'}
+
+def table(space,surrogate,problem,designs,mean,sd,training_max,known,front,tolerance):
     rows=[]
+    X=np.array([composition_fingerprint(*space.composition(d)) for d in designs]).reshape(len(designs),-1)
+    nearest,similarity=known.nearest(X)
+    beaten=dominated_by(front,problem.utilities(mean,np.zeros_like(mean))) if len(designs) else []
+    beyond=beyond_front_probability(problem,mean,sd,front)
     for i,design in enumerate(designs):
         (a,x),(d,y)=design
         if sum(x)!=UNITS or sum(y)!=UNITS:raise AssertionError(f'Fractions do not sum to 1: {design}')
@@ -439,6 +613,18 @@ def table(space,surrogate,problem,designs,mean,sd,training_max):
             row[name+'_lo90']=from_model_space(target,mean[i,k]-Z90*total)
             row[name+'_hi90']=from_model_space(target,mean[i,k]+Z90*total)
             if design in surrogate.mixed:row[name+'_mixing_rule']=from_model_space(target,surrogate.mixed[design][target])
+        novelty,gap,closest=known.novelty(units,fractions,tolerance)
+        row['novelty']=novelty;row['novelty_ja']=NOVELTY_JA[novelty]
+        row['composition_gap_to_measured']=gap
+        row['dominated_by_measured_front']=bool(beaten[i])
+        row['p_beyond_measured_front']=float(beyond[i])
+        # Closest by composition (shared repeat units) when there is one, else by fingerprint.
+        index=closest if closest is not None else int(nearest[i]);near=known.rows[index]
+        row['nearest_measured_by']='composition' if closest is not None else 'fingerprint'
+        row['nearest_measured_similarity']=float(tanimoto(X[i:i+1],known.X[[index]])[0,0])
+        for name in TARGETS:row['nearest_measured_'+name]=near['values'].get(name)
+        row['nearest_measured_source']=near['source']
+        row['nearest_measured_units_json']=json.dumps(near['units']);row['nearest_measured_fractions_json']=json.dumps([round(f,4) for f in near['fractions']])
         row['composition_extrapolated']=len(units)>TRAINED_UNITS
         row['min_similarity_to_training']=training_max(units)
         row['regioisomer_ambiguous']=space.ambiguous(design)
@@ -472,7 +658,7 @@ def parse_design_side(side,text):
     pairs=[side.parse_fix(p) for p in text.split(';') if p.strip()]
     if any(low!=high for _,low,high in pairs):raise SystemExit(f'Observed fractions must be exact: {text}')
     if sum(low for _,low,_ in pairs)!=UNITS:raise SystemExit(f'Observed fractions must sum to 1.0: {text}')
-    return tuple(i for i,_,_ in pairs),tuple(low for _,low,_ in pairs)
+    return side.canonical([i for i,_,_ in pairs],[low for _,low,_ in pairs])
 
 def read_observations(path,space):
     items=[]
@@ -507,7 +693,7 @@ def main():
     ap.add_argument('--diamine-candidates',help="Search only these diamines, separated by ';'.")
     ap.add_argument('--min-acids',type=int,default=1);ap.add_argument('--max-acids',type=int,default=2)
     ap.add_argument('--min-diamines',type=int,default=1);ap.add_argument('--max-diamines',type=int,default=2)
-    ap.add_argument('--min-fraction',type=float,default=.05);ap.add_argument('--step',type=float,default=.05)
+    ap.add_argument('--min-fraction',type=float,default=.1,help='Smallest fraction of a monomer (default 0.1; below that a monomer hardly changes the film and the design is a near copy).');ap.add_argument('--step',type=float,default=.05)
     ap.add_argument('--acid-file',type=Path,default=ROOT/'polyimide_optimizer/acid_candidates.csv',help='Candidate list. Rows with use=False are skipped.')
     ap.add_argument('--diamine-file',type=Path,default=ROOT/'polyimide_optimizer/diamine_candidates.csv',help='Candidate list. Rows with use=False are skipped.')
     ap.add_argument('--exclude-fluorine',action='store_true')
@@ -518,6 +704,13 @@ def main():
     ap.add_argument('--explore-generations',type=int,default=30);ap.add_argument('--mutation',type=float,default=.3)
     ap.add_argument('--kappa',type=float,default=1.);ap.add_argument('--batch',type=int,default=10)
     ap.add_argument('--seed',type=int,default=0);ap.add_argument('--output-dir',type=Path,default=ROOT/'polyimide_optimizer/output')
+    ap.add_argument('--front',choices=['measured','predicted'],default='measured',
+                    help='What the batch must improve on: the Pareto front of measured polymers (default), or the predicted front of this run.')
+    ap.add_argument('--max-per-system',type=int,default=1,help='Most designs from one monomer set in a batch (default 1).')
+    ap.add_argument('--remeasure-tolerance',type=float,default=.1,
+                    help='A design whose repeat-unit composition differs from a measured polymer by at most this mole fraction counts as already measured (default 0.1).')
+    ap.add_argument('--allow-remeasure',action='store_true',help='Let the batch include compositions that count as already measured.')
+    ap.add_argument('--new-systems-only',action='store_true',help='Leave measured repeat-unit sets (at any ratio) out of the batch.')
     ap.add_argument('--check-calibration',action='store_true')
     args=ap.parse_args()
     if args.check_calibration:
@@ -542,9 +735,10 @@ def main():
             try:make_polyimide(*pair)
             except MonomerError as error:raise SystemExit(str(error))
     surrogate=Surrogate(space,problem.targets,args.sequence)
+    known=Known()
     observed=[]
     if args.observations:
-        observed=read_observations(args.observations,space);surrogate.add_observations(observed)
+        observed=read_observations(args.observations,space);surrogate.add_observations(observed);known.add_observations(observed,space)
     train_fps={t:np.array([unit_fingerprint(s) for s in sorted({s for r in json.loads((MODELS/'datasets.json').read_text())[t] for s in r['components']})]) for t in problem.targets}
     similarity_cache={}
     def least_similar(units):
@@ -563,19 +757,45 @@ def main():
     mean,sd=surrogate.evaluate(designs)
     values=problem.utilities(mean,sd);violation=problem.violation(mean)+problem.penalty(designs)
     mask=pareto_mask(values,violation)
-    frame=table(space,surrogate,problem,[designs[i] for i in np.where(mask)[0]],mean[mask],sd[mask],least_similar)
+
+    # The measured front: what a new film has to beat to be worth making.
+    known_values,known_measured,known_utilities,known_mask=known_front(known,surrogate,problem)
+    measured_front=known_utilities[known_mask]
+    print(f'measured front: {int(known_mask.sum())} of {len(known.rows)} measured polymers',flush=True)
+    front=measured_front if args.front=='measured' else values[mask]
+
+    frame=table(space,surrogate,problem,[designs[i] for i in np.where(mask)[0]],mean[mask],sd[mask],least_similar,known,measured_front,args.remeasure_tolerance)
     args.output_dir.mkdir(parents=True,exist_ok=True)
     frame.sort_values(short_name(objectives[0][0])+'_pred',ascending=objectives[0][1]<0).to_csv(args.output_dir/'pareto_predicted.csv',index=False,encoding='utf-8-sig')
-    known={d for d,_ in observed}
+    write_known_front(args.output_dir/'measured_front.csv',known,problem,known_values,known_measured,known_mask)
+
+    novelty=[known.novelty(*space.composition(d),args.remeasure_tolerance)[0] for d in designs]
+    observed_designs={d for d,_ in observed}
     blocked=problem.penalty(designs)
-    open_designs=[i for i,d in enumerate(designs) if d not in known and blocked[i]==0]
-    picked,gains=select_batch(surrogate,problem,[designs[i] for i in open_designs],mean[open_designs],sd[open_designs],mask[open_designs],args.batch)
+    skip={'measured'} if not args.allow_remeasure else set()
+    if args.new_systems_only:skip|={'measured','known_system'}
+    open_designs=[i for i,d in enumerate(designs) if d not in observed_designs and blocked[i]==0 and novelty[i] not in skip]
+    systems=[space.system(designs[i]) for i in open_designs]
+    picked,gains=select_batch(surrogate,problem,[designs[i] for i in open_designs],mean[open_designs],sd[open_designs],front,args.batch,systems,args.max_per_system)
     chosen=[open_designs[i] for i in picked]
-    batch=table(space,surrogate,problem,[designs[i] for i in chosen],mean[chosen],sd[chosen],least_similar)
+    batch=table(space,surrogate,problem,[designs[i] for i in chosen],mean[chosen],sd[chosen],least_similar,known,measured_front,args.remeasure_tolerance)
     batch.insert(0,'batch_rank',range(1,len(batch)+1));batch.insert(1,'ehvi',gains)
     batch.to_csv(args.output_dir/'next_experiments.csv',index=False,encoding='utf-8-sig')
-    summary=dict(arguments={k:str(v) for k,v in vars(args).items()},evaluated=len(designs),pareto=int(mask.sum()),feasible=int((violation<=0).sum()),seconds=round(time.time()-start))
+    counts={k:int(sum(n==k for n in novelty)) for k in NOVELTY_JA}
+    summary=dict(arguments={k:str(v) for k,v in vars(args).items()},evaluated=len(designs),pareto=int(mask.sum()),feasible=int((violation<=0).sum()),
+                 measured_front=int(known_mask.sum()),pareto_beaten_by_measured=int(frame['dominated_by_measured_front'].sum()) if len(frame) else 0,
+                 novelty_of_evaluated=counts,batch=len(batch),seconds=round(time.time()-start))
     (args.output_dir/'run_summary.json').write_text(json.dumps(summary,indent=1,ensure_ascii=False))
-    print(json.dumps({k:summary[k] for k in('evaluated','pareto','feasible','seconds')}),'->',args.output_dir)
+    print(json.dumps({k:summary[k] for k in('evaluated','pareto','pareto_beaten_by_measured','measured_front','batch','seconds')}),'->',args.output_dir)
+
+def write_known_front(path,known,problem,values,measured,mask):
+    rows=[]
+    for i in np.where(mask)[0]:
+        r=known.rows[i];row=dict(source=r['source'])
+        for k,t in enumerate(problem.targets):
+            name=short_name(t);row[name]=float(from_model_space(t,values[i,k]));row[name+'_measured']=bool(measured[i,k])
+        row['units_json']=json.dumps(r['units']);row['fractions_json']=json.dumps([round(f,4) for f in r['fractions']])
+        rows.append(row)
+    pd.DataFrame(rows).to_csv(path,index=False,encoding='utf-8-sig')
 
 if __name__=='__main__':main()

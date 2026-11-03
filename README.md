@@ -75,7 +75,11 @@ python -m http.server 8766 --bind 127.0.0.1 --directory polyimide_virtual_app/di
 | `acid_candidates.csv`, `diamine_candidates.csv` | 探索候補と略称の一覧。`use=False` の行は候補から外れる |
 | `build_monomer_lists.py` | 候補一覧を作り直す。編集した候補一覧は上書きされる |
 | `test_mobo.py` | 組成の規則と略称の解決を検査する |
-| `output/` | 実行すると作られる。`pareto_predicted.csv`(パレート解)、`next_experiments.csv`(次の実験候補)、`run_summary.json`(実行条件) |
+| `region_search.py` | 物性の目標領域(例 Tg 240〜260 ℃、弾性率 1 GPa以下)に入る確率が高く、学習データから離れた組成を探す |
+| `soft_segment.py`, `soft_monomers.csv` | 長鎖シロキサンジアミンなどのソフトセグメント。`region_search.py` が使う |
+| `compare_with_training.py`, `compare_web/` | 最適化の結果を学習データと重ねて見るWebページを作る |
+| `examples/` | 実測ファイルの書式の例(値は架空) |
+| `output*/` | 実行すると作られる。`pareto_predicted.csv`(パレート解)、`next_experiments.csv`(次の実験候補)、`run_summary.json`(実行条件)など。比較ページ `compare/` には実測値が入るので、コミットしない |
 
 ### `polyimide_virtual_app/`
 
@@ -171,7 +175,7 @@ python polyimide_optimizer/mobo_copolyimide.py --observations measured.csv
 |---|---|
 | `--n-diamines 3` | 必ず3種類使う。候補が3種類なら比率だけを最適化し、どれも0にならない |
 | `--min-diamines 1 --max-diamines 3` | 1〜3種類から選ぶ。選ばれないものは実質0(既定は1〜2種類) |
-| `--min-fraction 0.1`, `--step 0.05` | 成分の最小比率と刻み。酸とジアミンの両方に効く(既定はどちらも0.05) |
+| `--min-fraction 0.1`, `--step 0.05` | 成分の最小比率と刻み。酸とジアミンの両方に効く(既定は最小比率0.1、刻み0.05) |
 | `--fix-diamine ODA` | 種類だけ固定。比率は最適化する |
 | `--fix-diamine 'ODA=0.5'`, `--fix-diamine 'ODA=0.2-0.6'` | 比率を固定、または範囲で指定 |
 
@@ -188,6 +192,30 @@ python polyimide_optimizer/mobo_copolyimide.py --observations measured.csv
 - **外挿:** 学習データの共重合体は反復単位が3種類までです。4種類以上は `composition_extrapolated=True` とし、混合則との差を不確かさに加えます。
 - **不確かさの限界:** 弾性率とCTEは、学習データからの距離で不確かさがほとんど変わりません。
 - **確認:** `python polyimide_optimizer/test_mobo.py` で組成の規則を検査できます。
+- **実測との比較:** EHVIは実測済みポリマーのパレート前線を基準に計算します(`--front predicted` で予測の前線)。実測済みとほぼ同じ組成(`--remeasure-tolerance`, 既定0.1)は候補から外します。出力の `novelty` 列は、実測済み / 既知の系 / 既知の反復単位 / 新しい反復単位 の区別です。`measured_front.csv` に実測の前線を書き出します。
+
+### 目標領域に入る組成を探す
+
+`region_search.py` は、指定した物性の範囲にすべて入る確率 P(領域) を最大にし、同時に最も近い学習データとの類似度を下げる組成を探します(類似度の上限は `--max-similarity`, 既定0.8)。次の実験候補は、候補どうしの予測誤差の相関を考えて「どれか1つが目標に入る確率」が高くなるように選びます。
+
+```bash
+python polyimide_optimizer/region_search.py --region 'Tg>=350' --region 'modulus<=3'
+python polyimide_optimizer/region_search.py --region 'Tg=240-260' --region 'modulus<=1.0' \
+  --fix-diamine 'MESi3200=0.05-0.3' --observations polyimide_optimizer/examples/observations_siloxane_example.csv \
+  --output-dir polyimide_optimizer/output_region_siloxane
+```
+
+出力は `region_candidates.csv`(P(領域)と類似度のパレート解)、`region_batch.csv`(次の実験候補)、`run_summary.json` です。
+
+- **ソフトセグメント:** `soft_monomers.csv` のモノマー(例 Mn 3200 のシロキサンジアミン MESi3200)は学習データの範囲外なので、モデルに直接は聞きません。ソフト成分を除いたハード部分の予測に「傾き × ソフト成分の重量分率」を足し、傾きは `--observations` の実測から推定します。実測がないと傾きは事前分布のままで、予測は当てになりません。
+
+### 結果を学習データと比べる
+
+```bash
+python polyimide_optimizer/compare_with_training.py --run-dir polyimide_optimizer/output
+```
+
+`<run-dir>/compare/index.html` をブラウザで開きます。設計と学習データ(実測値)を1枚の散布図(Tg・弾性率・CTEの組み合わせか構造マップ)に重ね、点を選ぶと予測値、モノマー、反復単位、構造の近い学習データが出ます。学習データのモノマーは反復単位をイミド結合で切って推定します。ページには実測値と文献番号が入るので、外部に共有しないでください。
 
 ## 学習データを元データから作り直す
 

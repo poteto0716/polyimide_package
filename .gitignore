@@ -13,7 +13,7 @@ polyimide_models/*/*
 !polyimide_models/*/results.json
 !polyimide_models/*/oof10_results.json
 # Files the run scripts create.
-polyimide_optimizer/output/
+polyimide_optimizer/output*/
 polyimide_virtual_app/dist/data.json
 polyimide_virtual_app/dist/structures/
 polyimide_virtual_app/*.xlsx
